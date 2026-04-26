@@ -9,19 +9,11 @@ import {
 import CategoryDetail from './pages/CategoryDetail';
 
 const LogoMark = ({ isScrolled, size = 'md' }: { isScrolled?: boolean, size?: 'md' | 'lg' }) => {
-  const containerClass = size === 'lg' ? 'w-12 h-12 rounded-2xl' : 'w-10 h-10 rounded-xl';
-  const blurClass = size === 'lg' ? 'w-8 h-8' : 'w-6 h-6';
-  const fontSizeClass = size === 'lg' ? 'text-2xl' : 'text-xl';
+  const sizeClass = size === 'lg' ? 'w-16 h-16 sm:w-20 sm:h-20' : 'w-12 h-12 sm:w-14 sm:h-14';
 
   return (
-    <div className={`relative flex items-center justify-center ${containerClass} overflow-hidden transition-all duration-500 flex-shrink-0 shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/40`}>
-      <div className={`absolute inset-0 bg-gradient-to-br from-emerald-600 via-teal-500 to-cyan-500 group-hover:scale-110 transition-transform duration-500`}></div>
-      <div className={`absolute bottom-0 right-0 ${blurClass} rounded-full blur-md opacity-60 bg-lime-400 group-hover:bg-green-400 transition-colors duration-500`}></div>
-      <div className="relative z-10 flex items-center justify-center">
-         <span className={`font-serif font-black ${fontSizeClass} text-white drop-shadow-sm`}>
-           S
-         </span>
-      </div>
+    <div className={`relative flex items-center justify-center ${sizeClass} transition-transform duration-500 hover:scale-105 flex-shrink-0`}>
+      <img src="/icon.svg" alt="Senapati Connect Logo" className="w-full h-full object-contain drop-shadow-sm" />
     </div>
   );
 };
@@ -423,6 +415,7 @@ const Footer = () => {
         <div className="pt-8 border-t border-stone-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-stone-500">
           <p font-medium>© {new Date().getFullYear()} Senapati Connect. All rights reserved.</p>
           <div className="flex gap-6 uppercase tracking-widest text-[10px] font-bold">
+           
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
           </div>
