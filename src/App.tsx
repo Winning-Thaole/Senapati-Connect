@@ -14,11 +14,11 @@ const LogoMark = ({ isScrolled, size = 'md' }: { isScrolled?: boolean, size?: 'm
   const fontSizeClass = size === 'lg' ? 'text-2xl' : 'text-xl';
 
   return (
-    <div className={`relative flex items-center justify-center ${containerClass} overflow-hidden transition-all duration-500 flex-shrink-0 ${isScrolled ? 'shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/40' : 'shadow-lg shadow-black/10'}`}>
-      <div className={`absolute inset-0 bg-gradient-to-br ${isScrolled ? 'from-emerald-600 via-teal-500 to-cyan-500 group-hover:scale-110 transition-transform duration-500' : 'from-white to-stone-50'}`}></div>
-      <div className={`absolute bottom-0 right-0 ${blurClass} rounded-full blur-md opacity-60 ${isScrolled ? 'bg-lime-400 group-hover:bg-green-400 transition-colors duration-500' : 'bg-emerald-300'}`}></div>
+    <div className={`relative flex items-center justify-center ${containerClass} overflow-hidden transition-all duration-500 flex-shrink-0 shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/40`}>
+      <div className={`absolute inset-0 bg-gradient-to-br from-emerald-600 via-teal-500 to-cyan-500 group-hover:scale-110 transition-transform duration-500`}></div>
+      <div className={`absolute bottom-0 right-0 ${blurClass} rounded-full blur-md opacity-60 bg-lime-400 group-hover:bg-green-400 transition-colors duration-500`}></div>
       <div className="relative z-10 flex items-center justify-center">
-         <span className={`font-serif font-black ${fontSizeClass} ${isScrolled ? 'text-white drop-shadow-sm' : 'text-emerald-600'}`}>
+         <span className={`font-serif font-black ${fontSizeClass} text-white drop-shadow-sm`}>
            S
          </span>
       </div>
@@ -46,32 +46,32 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-md border-b border-emerald-100 py-4 shadow-sm' : 'bg-transparent border-b border-transparent py-6 lg:py-8'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex justify-between items-center">
-        <div className="flex items-center gap-3 group cursor-pointer">
-          <LogoMark isScrolled={isScrolled} />
-          <span className={`font-serif tracking-wide hidden sm:block text-lg font-bold transition-colors ${isScrolled ? 'text-stone-900 group-hover:text-emerald-700' : 'text-white group-hover:text-emerald-200'}`}>
+        <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3 group cursor-pointer">
+          <LogoMark size={isScrolled ? 'md' : 'lg'} />
+          <span className={`font-serif tracking-wide hidden sm:block text-lg font-bold transition-colors text-stone-900 group-hover:text-emerald-700`}>
             Senapati Connect
           </span>
-          <span className={`font-serif tracking-wide sm:hidden text-base font-bold transition-colors ${isScrolled ? 'text-stone-900 group-hover:text-emerald-700' : 'text-white group-hover:text-emerald-200'}`}>
+          <span className={`font-serif tracking-wide sm:hidden text-base font-bold transition-colors text-stone-900 group-hover:text-emerald-700`}>
             SC
           </span>
-        </div>
+        </Link>
         
-        <div className="hidden md:flex items-center gap-8 bg-white/20 backdrop-blur-md border border-white/30 shadow-sm px-8 py-3 rounded-full">
+        <div className="hidden md:flex items-center gap-8 bg-stone-50 border border-stone-200 backdrop-blur-md shadow-sm px-8 py-3 rounded-full">
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} className={`text-[11px] uppercase tracking-widest font-bold transition-colors ${isScrolled ? 'text-stone-600 hover:text-emerald-600' : 'text-white/90 hover:text-white'}`}>
+            <a key={link.name} href={link.href} className={`text-[11px] uppercase tracking-widest font-bold transition-colors text-stone-600 hover:text-emerald-600`}>
               {link.name}
             </a>
           ))}
         </div>
 
         <div className="hidden md:flex">
-          <a href="/#contact" className={`px-6 py-3 rounded-full text-[11px] uppercase tracking-widest font-bold transition-colors shadow-lg ${isScrolled ? 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-500/25' : 'bg-white text-emerald-600 hover:bg-emerald-50 shadow-black/10'}`}>
+          <a href="/#contact" className="px-6 py-3 rounded-full text-[11px] uppercase tracking-widest font-bold transition-colors shadow-lg bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-500/25">
             Get in Touch
           </a>
         </div>
 
         <div className="md:hidden">
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className={`p-2 ${isScrolled ? 'text-stone-900' : 'text-white'}`}>
+          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 text-stone-900 hover:text-emerald-600 transition-colors">
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -137,8 +137,8 @@ const Hero = () => {
               </p>
             </div>
             
-            <div className="flex flex-wrap gap-4 mt-8">
-              <a href="#directory" className="bg-white text-emerald-600 hover:bg-stone-50 rounded-full px-8 py-4 text-xs uppercase tracking-widest font-bold transition-all hover:-translate-y-1 shadow-xl shadow-black/10 flex justify-center items-center gap-3">
+            <div className="flex flex-col sm:flex-row gap-4 mt-8">
+              <a href="#directory" className="bg-white text-emerald-600 hover:bg-stone-50 rounded-full px-6 py-3.5 sm:px-8 sm:py-4 w-full sm:w-auto text-xs uppercase tracking-widest font-bold transition-colors shadow-lg flex justify-center items-center gap-3">
                 Browse Directory <ArrowRight size={16} className="text-emerald-500" />
               </a>
             </div>
@@ -352,7 +352,7 @@ const Contact = () => {
                 <div className="w-14 h-14 rounded-2xl bg-white/80 backdrop-blur-sm border border-emerald-200 shadow-sm flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300 transform group-hover:scale-110 group-hover:-rotate-3">
                   <Mail size={22} strokeWidth={2} />
                 </div>
-                <span className="font-medium">contact@senapatiservices.com</span>
+                <span className="font-medium">senapaticonnect@gmail.com</span>
               </div>
             </div>
           </div>
@@ -392,12 +392,12 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-8 group cursor-pointer inline-flex">
+            <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3 mb-8 group cursor-pointer inline-flex">
               <LogoMark isScrolled={true} size="lg" />
               <span className="font-serif tracking-wide text-white text-2xl font-bold group-hover:text-emerald-400 transition-colors">
                 Senapati Connect
               </span>
-            </div>
+            </Link>
             <p className="text-stone-400 mb-8 text-base leading-relaxed max-w-sm">
               Empowering the community by connecting locals with trusted services, businesses, and professionals across the region.
             </p>

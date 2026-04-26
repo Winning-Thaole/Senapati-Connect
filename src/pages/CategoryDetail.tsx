@@ -59,12 +59,12 @@ const categoryData: Record<string, { title: string, theme: string, color: string
   },
   "photography": {
     title: "Photography",
-    theme: "from-indigo-500/20",
-    color: "text-indigo-500",
-    bg: "bg-indigo-50",
-    border: "border-indigo-100",
-    hoverBorder: "group-hover:border-indigo-300",
-    highlightBg: "bg-indigo-500",
+    theme: "from-teal-500/20",
+    color: "text-teal-500",
+    bg: "bg-teal-50",
+    border: "border-teal-100",
+    hoverBorder: "group-hover:border-teal-300",
+    highlightBg: "bg-teal-500",
     listings: [
       { name: "Lens & Lights Studio", rating: 5.0, reviews: 120, location: "Main Bazar", phone: "+91 98765 99999", image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=150&h=150"] },
       { name: "Memories Captured", rating: 4.9, reviews: 75, location: "Taphou", phone: "+91 98765 00000", image: "https://images.unsplash.com/photo-1554048665-6807897813a4?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1518131804797-7c64a38bd2c7?auto=format&fit=crop&q=80&w=150&h=150"] }
@@ -72,12 +72,12 @@ const categoryData: Record<string, { title: string, theme: string, color: string
   },
   "event-rentals": {
     title: "Event Rentals",
-    theme: "from-violet-500/20",
-    color: "text-violet-500",
-    bg: "bg-violet-50",
-    border: "border-violet-100",
-    hoverBorder: "group-hover:border-violet-300",
-    highlightBg: "bg-violet-500",
+    theme: "from-blue-500/20",
+    color: "text-blue-500",
+    bg: "bg-blue-50",
+    border: "border-blue-100",
+    hoverBorder: "group-hover:border-blue-300",
+    highlightBg: "bg-blue-500",
     listings: [
       { name: "Pioneer Party Equipments", rating: 4.8, reviews: 62, location: "Senapati Outskirts", phone: "+91 98765 12345", image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=80&w=150&h=150"] },
       { name: "Classic Tents & Chairs", rating: 4.7, reviews: 45, location: "Karong Road", phone: "+91 98765 54321", image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1530103862676-de8892ebeea2?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1505368541998-cbf1c9b20757?auto=format&fit=crop&q=80&w=150&h=150"] }
@@ -85,12 +85,12 @@ const categoryData: Record<string, { title: string, theme: string, color: string
   },
   "catering": {
     title: "Catering Services",
-    theme: "from-fuchsia-500/20",
-    color: "text-fuchsia-500",
-    bg: "bg-fuchsia-50",
-    border: "border-fuchsia-100",
-    hoverBorder: "group-hover:border-fuchsia-300",
-    highlightBg: "bg-fuchsia-500",
+    theme: "from-emerald-500/20",
+    color: "text-emerald-500",
+    bg: "bg-emerald-50",
+    border: "border-emerald-100",
+    hoverBorder: "group-hover:border-emerald-300",
+    highlightBg: "bg-emerald-500",
     listings: [
       { name: "Spice & Smoke Catering", rating: 4.8, reviews: 54, location: "Senapati Bazar", phone: "+91 98765 10101", image: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1547573854-74d2a71d0826?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=150&h=150"] },
       { name: "Traditional Feasts", rating: 4.9, reviews: 78, location: "Taphou", phone: "+91 98765 01010", image: "https://images.unsplash.com/photo-1579584425514-6fa1031d2794?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=150&h=150"] }
