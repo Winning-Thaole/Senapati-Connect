@@ -294,6 +294,34 @@ const Directory = () => {
 };
 
 const Contact = () => {
+  const [formData, setFormData] = React.useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = React.useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('submitting');
+    
+    const encode = (data: Record<string, string>) => {
+      return Object.keys(data)
+          .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+          .join("&");
+    };
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode({ "form-name": "contact", ...formData })
+    })
+      .then(() => {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      })
+      .catch((error) => {
+        console.error(error);
+        setStatus('error');
+      });
+  };
+
   return (
     <section id="contact" className="py-24 bg-gradient-to-tr from-emerald-100 to-stone-50 relative border-b border-emerald-200">
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-teal-300/20 rounded-full blur-[120px] pointer-events-none mix-blend-multiply translate-x-1/3 -translate-y-1/3"></div>
@@ -331,22 +359,25 @@ const Contact = () => {
           
           <div className="bg-white/80 backdrop-blur-md border border-emerald-100 rounded-3xl p-8 lg:p-10 shadow-2xl shadow-emerald-900/10 relative">
             <div className="absolute top-0 right-10 w-20 h-2 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-b-lg"></div>
-            <form className="space-y-6 mt-4" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6 mt-4" onSubmit={handleSubmit} name="contact" data-netlify="true">
+              <input type="hidden" name="form-name" value="contact" />
               <div>
                 <label className="block text-[11px] uppercase tracking-widest text-stone-500 mb-2 font-bold">Name</label>
-                <input type="text" className="w-full px-5 py-4 rounded-xl bg-white/50 border border-emerald-100 text-stone-900 focus:outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 transition-all font-medium placeholder-stone-400" placeholder="Your name" />
+                <input type="text" name="name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required className="w-full px-5 py-4 rounded-xl bg-white/50 border border-emerald-100 text-stone-900 focus:outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 transition-all font-medium placeholder-stone-400" placeholder="Your name" />
               </div>
               <div>
                 <label className="block text-[11px] uppercase tracking-widest text-stone-500 mb-2 font-bold">Email</label>
-                <input type="email" className="w-full px-5 py-4 rounded-xl bg-white/50 border border-emerald-100 text-stone-900 focus:outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 transition-all font-medium placeholder-stone-400" placeholder="Your email address" />
+                <input type="email" name="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} required className="w-full px-5 py-4 rounded-xl bg-white/50 border border-emerald-100 text-stone-900 focus:outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 transition-all font-medium placeholder-stone-400" placeholder="Your email address" />
               </div>
               <div>
                 <label className="block text-[11px] uppercase tracking-widest text-stone-500 mb-2 font-bold">Message</label>
-                <textarea rows={4} className="w-full px-5 py-4 rounded-xl bg-white/50 border border-emerald-100 text-stone-900 focus:outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 transition-all font-medium resize-none placeholder-stone-400" placeholder="How can we help you?"></textarea>
+                <textarea rows={4} name="message" value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} required className="w-full px-5 py-4 rounded-xl bg-white/50 border border-emerald-100 text-stone-900 focus:outline-none focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 transition-all font-medium resize-none placeholder-stone-400" placeholder="How can we help you?"></textarea>
               </div>
-              <button type="submit" className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl px-8 py-4 text-xs uppercase tracking-widest font-bold shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/40 hover:-translate-y-1 transition-all">
-                Send Message
+              <button type="submit" disabled={status === 'submitting'} className={`w-full bg-gradient-to-r ${status === 'submitting' ? 'from-stone-400 to-stone-500 cursor-not-allowed' : 'from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500'} text-white rounded-xl px-8 py-4 text-xs uppercase tracking-widest font-bold shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/40 transition-all`}>
+                {status === 'submitting' ? 'Sending...' : 'Send Message'}
               </button>
+              {status === 'success' && <p className="text-emerald-600 text-sm font-medium mt-2 text-center">Thanks! We will get back to you soon.</p>}
+              {status === 'error' && <p className="text-red-500 text-sm font-medium mt-2 text-center">Oops! There was a problem submitting your form.</p>}
             </form>
           </div>
         </div>
