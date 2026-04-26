@@ -5,8 +5,21 @@ import { ArrowLeft, Phone, MapPin, Star, Image as ImageIcon, ChevronRight } from
 
 // Specific mock data for each category
 const categoryData: Record<string, { title: string, theme: string, color: string, bg: string, border: string, hoverBorder: string, highlightBg: string, listings: any[] }> = {
+  "hotel": {
+    title: "Hotels",
+    theme: "from-blue-500/20",
+    color: "text-blue-500",
+    bg: "bg-blue-50",
+    border: "border-blue-100",
+    hoverBorder: "group-hover:border-blue-300",
+    highlightBg: "bg-blue-500",
+    listings: [
+      { name: "Senapati View Hotel", rating: 4.6, reviews: 52, location: "Main Road, Senapati", phone: "+91 98765 22201", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=400&h=300" },
+      { name: "Hilltop Residency", rating: 4.8, reviews: 36, location: "Taphou Hills", phone: "+91 98765 22202", image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=400&h=300" }
+    ]
+  },
   "wedding-planner": {
-    title: "Wedding Planners",
+    title: "Weddings",
     theme: "from-rose-500/20",
     color: "text-rose-500",
     bg: "bg-rose-50",
@@ -18,8 +31,8 @@ const categoryData: Record<string, { title: string, theme: string, color: string
       { name: "Dream Day Events", rating: 4.7, reviews: 28, location: "Main Bazar", phone: "+91 98765 22222", image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&q=80&w=150&h=150"] }
     ]
   },
-  "taxi-services": {
-    title: "Taxi Services",
+  "taxi-service": {
+    title: "Taxis",
     theme: "from-amber-500/20",
     color: "text-amber-500",
     bg: "bg-amber-50",
@@ -31,8 +44,8 @@ const categoryData: Record<string, { title: string, theme: string, color: string
       { name: "Reliable Rides", rating: 4.6, reviews: 41, location: "Taphou", phone: "+91 98765 44444", image: "https://images.unsplash.com/photo-1582218731388-b20b2241cfdb?auto=format&fit=crop&q=80&w=400&h=300" }
     ]
   },
-  "local-shops": {
-    title: "Local Shops",
+  "local-shop": {
+    title: "Shops",
     theme: "from-emerald-500/20",
     color: "text-emerald-500",
     bg: "bg-emerald-50",
@@ -44,8 +57,8 @@ const categoryData: Record<string, { title: string, theme: string, color: string
       { name: "Senapati Daily Needs", rating: 4.4, reviews: 89, location: "Vakho", phone: "+91 98765 66666", image: "https://images.unsplash.com/photo-1534723452862-4c87650816c0?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1584473457406-6240486418e9?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?auto=format&fit=crop&q=80&w=150&h=150"] }
     ]
   },
-  "commercial-vehicles": {
-    title: "Commercial Vehicles",
+  "commercial-vehicle": {
+    title: "Trucks",
     theme: "from-cyan-500/20",
     color: "text-cyan-500",
     bg: "bg-cyan-50",
@@ -58,7 +71,7 @@ const categoryData: Record<string, { title: string, theme: string, color: string
     ]
   },
   "photography": {
-    title: "Photography",
+    title: "Photos",
     theme: "from-teal-500/20",
     color: "text-teal-500",
     bg: "bg-teal-50",
@@ -70,8 +83,8 @@ const categoryData: Record<string, { title: string, theme: string, color: string
       { name: "Memories Captured", rating: 4.9, reviews: 75, location: "Taphou", phone: "+91 98765 00000", image: "https://images.unsplash.com/photo-1554048665-6807897813a4?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1518131804797-7c64a38bd2c7?auto=format&fit=crop&q=80&w=150&h=150"] }
     ]
   },
-  "event-rentals": {
-    title: "Event Rentals",
+  "event-rental": {
+    title: "Rentals",
     theme: "from-blue-500/20",
     color: "text-blue-500",
     bg: "bg-blue-50",
@@ -84,7 +97,7 @@ const categoryData: Record<string, { title: string, theme: string, color: string
     ]
   },
   "catering": {
-    title: "Catering Services",
+    title: "Catering",
     theme: "from-emerald-500/20",
     color: "text-emerald-500",
     bg: "bg-emerald-50",
@@ -170,7 +183,7 @@ export default function CategoryDetail() {
                 </div>
               </div>
 
-              {categoryId !== 'taxi-services' && listing.products && listing.products.length > 0 && (
+              {categoryId !== 'taxi-service' && listing.products && listing.products.length > 0 && (
                 <div className="flex-shrink-0 w-full md:w-auto z-10 md:text-right mt-4 md:mt-0">
                   <p className="text-[10px] uppercase tracking-widest text-slate-400 mb-3 font-bold">Portfolio / Products</p>
                   <div className="flex gap-3 overflow-x-auto pb-2 md:pb-0 hide-scrollbar">
