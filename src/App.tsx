@@ -4,7 +4,8 @@ import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-do
 import { 
   ArrowRight, Menu, X, ChevronRight, Briefcase, 
   CheckCircle2, Globe, Lightbulb, ShieldCheck, 
-  Users, BarChart, Mail, Phone, HeartHandshake, CarFront, Store, Truck, Camera, Tent, Utensils, Bed
+  Users, BarChart, Mail, Phone, HeartHandshake, CarFront, Store, Truck, Camera, Tent, Utensils, Bed,
+  School, Hospital, Stethoscope, Pill
 } from 'lucide-react';
 import CategoryDetail from './pages/CategoryDetail';
 
@@ -231,6 +232,10 @@ const Directory = () => {
     { id: "wedding-planner", title: "Weddings", icon: <HeartHandshake size={24} strokeWidth={2} />, description: "Planners.", color: "text-rose-500", bg: "bg-rose-100/30", border: "border-rose-100" },
     { id: "taxi-service", title: "Taxis", icon: <CarFront size={24} strokeWidth={2} />, description: "Uber/Taxi.", color: "text-amber-500", bg: "bg-amber-100/30", border: "border-amber-100" },
     { id: "local-shop", title: "Shops", icon: <Store size={24} strokeWidth={2} />, description: "Essentials.", color: "text-emerald-500", bg: "bg-emerald-100/30", border: "border-emerald-100" },
+    { id: "school", title: "Schools", icon: <School size={24} strokeWidth={2} />, description: "Education.", color: "text-indigo-600", bg: "bg-indigo-100/30", border: "border-indigo-100" },
+    { id: "hospital", title: "Hospitals", icon: <Hospital size={24} strokeWidth={2} />, description: "Healthcare.", color: "text-red-500", bg: "bg-red-100/30", border: "border-red-100" },
+    { id: "clinic", title: "Clinics", icon: <Stethoscope size={24} strokeWidth={2} />, description: "Medical help.", color: "text-sky-500", bg: "bg-sky-100/30", border: "border-sky-100" },
+    { id: "pharmacy", title: "Pharmacies", icon: <Pill size={24} strokeWidth={2} />, description: "Medicines.", color: "text-teal-600", bg: "bg-teal-100/30", border: "border-teal-100" },
     { id: "commercial-vehicle", title: "Trucks", icon: <Truck size={24} strokeWidth={2} />, description: "Transport.", color: "text-cyan-500", bg: "bg-cyan-100/30", border: "border-cyan-100" },
     { id: "photography", title: "Photos", icon: <Camera size={24} strokeWidth={2} />, description: "Studio.", color: "text-indigo-500", bg: "bg-indigo-100/30", border: "border-indigo-100" },
     { id: "event-rental", title: "Rentals", icon: <Tent size={24} strokeWidth={2} />, description: "Equipments.", color: "text-violet-500", bg: "bg-violet-100/30", border: "border-violet-100" },

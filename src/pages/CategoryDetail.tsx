@@ -18,6 +18,57 @@ const categoryData: Record<string, { title: string, theme: string, color: string
       { name: "Hilltop Residency", rating: 4.8, reviews: 36, location: "Taphou Hills", phone: "+91 98765 22202", image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=400&h=300" }
     ]
   },
+  "school": {
+    title: "Schools",
+    theme: "from-indigo-600/20",
+    color: "text-indigo-600",
+    bg: "bg-indigo-50",
+    border: "border-indigo-100",
+    hoverBorder: "group-hover:border-indigo-300",
+    highlightBg: "bg-indigo-600",
+    listings: [
+      { name: "St. Joseph's School", rating: 4.7, reviews: 120, location: "Senapati Town", phone: "+91 98765 11101", image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&q=80&w=400&h=300" },
+      { name: "Mount Everest School", rating: 4.5, reviews: 85, location: "Taphou", phone: "+91 98765 11102", image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=400&h=300" }
+    ]
+  },
+  "hospital": {
+    title: "Hospitals",
+    theme: "from-red-500/20",
+    color: "text-red-500",
+    bg: "bg-red-50",
+    border: "border-red-100",
+    hoverBorder: "group-hover:border-red-300",
+    highlightBg: "bg-red-500",
+    listings: [
+      { name: "District Hospital Senapati", rating: 4.2, reviews: 210, location: "Main Town", phone: "+91 03871 222214", image: "https://images.unsplash.com/photo-1586773860418-d3b9a89ec0c1?auto=format&fit=crop&q=80&w=400&h=300" }
+    ]
+  },
+  "clinic": {
+    title: "Clinics",
+    theme: "from-sky-500/20",
+    color: "text-sky-500",
+    bg: "bg-sky-50",
+    border: "border-sky-100",
+    hoverBorder: "group-hover:border-sky-300",
+    highlightBg: "bg-sky-500",
+    listings: [
+      { name: "City Dental Clinic", rating: 4.8, reviews: 45, location: "Bazar Road", phone: "+91 98765 33301", image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=400&h=300" },
+      { name: "HealthCare Plus", rating: 4.6, reviews: 32, location: "Old Town", phone: "+91 98765 33302", image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=400&h=300" }
+    ]
+  },
+  "pharmacy": {
+    title: "Pharmacies",
+    theme: "from-teal-600/20",
+    color: "text-teal-600",
+    bg: "bg-teal-50",
+    border: "border-teal-100",
+    hoverBorder: "group-hover:border-teal-300",
+    highlightBg: "bg-teal-600",
+    listings: [
+      { name: "LifeLine Medicos", rating: 4.9, reviews: 150, location: "Bazar Road", phone: "+91 98765 44401", image: "https://images.unsplash.com/photo-1586015555751-63bb77f4322a?auto=format&fit=crop&q=80&w=400&h=300" },
+      { name: "Global Pharmacy", rating: 4.7, reviews: 92, location: "Near District Hospital", phone: "+91 98765 44402", image: "https://images.unsplash.com/photo-1471864190281-ad599f5732a2?auto=format&fit=crop&q=80&w=400&h=300" }
+    ]
+  },
   "wedding-planner": {
     title: "Weddings",
     theme: "from-rose-500/20",
