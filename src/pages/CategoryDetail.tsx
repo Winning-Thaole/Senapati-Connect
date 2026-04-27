@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowLeft, Phone, MapPin, Star, Image as ImageIcon, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Phone, MapPin, Image as ImageIcon, ChevronRight } from 'lucide-react';
 
 // Specific mock data for each category
 const categoryData: Record<string, { title: string, theme: string, color: string, bg: string, border: string, hoverBorder: string, highlightBg: string, listings: any[] }> = {
@@ -14,8 +14,8 @@ const categoryData: Record<string, { title: string, theme: string, color: string
     hoverBorder: "group-hover:border-blue-300",
     highlightBg: "bg-blue-500",
     listings: [
-      { name: "Senapati View Hotel", rating: 4.6, reviews: 52, location: "Main Road, Senapati", phone: "+91 98765 22201", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=400&h=300" },
-      { name: "Hilltop Residency", rating: 4.8, reviews: 36, location: "Taphou Hills", phone: "+91 98765 22202", image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=400&h=300" }
+      { name: "3D Hotel", location: "Main Road, Senapati", phone: "+91 ", image: "" },
+      { name: "HOTEL", location: "Senapati", phone: "+91 ", image: "" }
     ]
   },
   "school": {
@@ -27,8 +27,8 @@ const categoryData: Record<string, { title: string, theme: string, color: string
     hoverBorder: "group-hover:border-indigo-300",
     highlightBg: "bg-indigo-600",
     listings: [
-      { name: "St. Joseph's School", rating: 4.7, reviews: 120, location: "Senapati Town", phone: "+91 98765 11101", image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&q=80&w=400&h=300" },
-      { name: "Mount Everest School", rating: 4.5, reviews: 85, location: "Taphou", phone: "+91 98765 11102", image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=400&h=300" }
+      { name: "Don Bosco Hr. Sec. School", location: "Senapati", phone: "+91 ", image: " " },
+      { name: "Mount Everest School", location: "Taphou", phone: "+91 ", image: " " }
     ]
   },
   "hospital": {
@@ -40,7 +40,7 @@ const categoryData: Record<string, { title: string, theme: string, color: string
     hoverBorder: "group-hover:border-red-300",
     highlightBg: "bg-red-500",
     listings: [
-      { name: "District Hospital Senapati", rating: 4.2, reviews: 210, location: "Main Town", phone: "+91 03871 222214", image: "https://images.unsplash.com/photo-1586773860418-d3b9a89ec0c1?auto=format&fit=crop&q=80&w=400&h=300" }
+      { name: "District Hospital Senapati", location: "Above District Council", phone: "+91 ", image: " " }
     ]
   },
   "clinic": {
@@ -52,8 +52,8 @@ const categoryData: Record<string, { title: string, theme: string, color: string
     hoverBorder: "group-hover:border-sky-300",
     highlightBg: "bg-sky-500",
     listings: [
-      { name: "City Dental Clinic", rating: 4.8, reviews: 45, location: "Bazar Road", phone: "+91 98765 33301", image: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=400&h=300" },
-      { name: "HealthCare Plus", rating: 4.6, reviews: 32, location: "Old Town", phone: "+91 98765 33302", image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=400&h=300" }
+      { name: "Dental Clinic", location: "Bazar Road", phone: "+91 ", image: " " },
+      { name: "HealthCare", location: "Old Town", phone: "+91 ", image: " " }
     ]
   },
   "pharmacy": {
@@ -65,8 +65,8 @@ const categoryData: Record<string, { title: string, theme: string, color: string
     hoverBorder: "group-hover:border-teal-300",
     highlightBg: "bg-teal-600",
     listings: [
-      { name: "LifeLine Medicos", rating: 4.9, reviews: 150, location: "Bazar Road", phone: "+91 98765 44401", image: "https://images.unsplash.com/photo-1586015555751-63bb77f4322a?auto=format&fit=crop&q=80&w=400&h=300" },
-      { name: "Global Pharmacy", rating: 4.7, reviews: 92, location: "Near District Hospital", phone: "+91 98765 44402", image: "https://images.unsplash.com/photo-1471864190281-ad599f5732a2?auto=format&fit=crop&q=80&w=400&h=300" }
+      { name: " Medicos", location: "Bazar Road", phone: "+91 ", image: "" },
+      { name: " Pharmacy", location: "Senapati", phone: "+91 ", image: " " }
     ]
   },
   "wedding-planner": {
@@ -78,8 +78,8 @@ const categoryData: Record<string, { title: string, theme: string, color: string
     hoverBorder: "group-hover:border-rose-300",
     highlightBg: "bg-rose-500",
     listings: [
-      { name: "Elegance Weddings", rating: 4.9, reviews: 42, location: "NH-2, Senapati", phone: "+91 98765 11111", image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1530103862676-de8892ebeea2?auto=format&fit=crop&q=80&w=150&h=150"] },
-      { name: "Dream Day Events", rating: 4.7, reviews: 28, location: "Main Bazar", phone: "+91 98765 22222", image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&q=80&w=150&h=150"] }
+      { name: "Elegance Weddings", location: "NH-2, Senapati", phone: "+91 ", image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1530103862676-de8892ebeea2?auto=format&fit=crop&q=80&w=150&h=150"] },
+      { name: "Dream  Events", location: "Main Bazar", phone: "+91 ", image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&q=80&w=150&h=150"] }
     ]
   },
   "taxi-service": {
@@ -91,8 +91,8 @@ const categoryData: Record<string, { title: string, theme: string, color: string
     hoverBorder: "group-hover:border-amber-300",
     highlightBg: "bg-amber-500",
     listings: [
-      { name: "Senapati Express Cabs", rating: 4.8, reviews: 85, location: "Taxi Stand, Senapati", phone: "+91 98765 33333", image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=400&h=300" },
-      { name: "Reliable Rides", rating: 4.6, reviews: 41, location: "Taphou", phone: "+91 98765 44444", image: "https://images.unsplash.com/photo-1582218731388-b20b2241cfdb?auto=format&fit=crop&q=80&w=400&h=300" }
+      { name: "Athesu", location: "Taxi Stand, Senapati", phone: "+91 89740 90087", image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=400&h=300" },
+      { name: "Modovi", location: "Senapati", phone: "+91 ", image: "https://images.unsplash.com/photo-1582218731388-b20b2241cfdb?auto=format&fit=crop&q=80&w=400&h=300" }
     ]
   },
   "local-shop": {
@@ -104,8 +104,8 @@ const categoryData: Record<string, { title: string, theme: string, color: string
     hoverBorder: "group-hover:border-emerald-300",
     highlightBg: "bg-emerald-500",
     listings: [
-      { name: "Pari Retail Store", rating: 4.5, reviews: 112, location: "Main Bazar", phone: "+91 98765 55555", image: "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&q=80&w=150&h=150"] },
-      { name: "Senapati Daily Needs", rating: 4.4, reviews: 89, location: "Vakho", phone: "+91 98765 66666", image: "https://images.unsplash.com/photo-1534723452862-4c87650816c0?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1584473457406-6240486418e9?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?auto=format&fit=crop&q=80&w=150&h=150"] }
+      { name: "J & J Summit Agency", location: "Old Road", items: "Stationery items, newspaper, school text books, office files and register, etc.", phone: "+91 82580 73712", image: "/summit-agency.png" },
+      { name: "Holoholona Enterprises", location: "NH-2 Near Vishal Mega Mart", items: "Poultry feeds, Pig feeds, Fish feeds, livestock medicine & instruments, etc.", phone: "+91 88268 31479", image: "/Holoholona Enterprises.jpg", products: ["/Holo1.jpeg "] }
     ]
   },
   "commercial-vehicle": {
@@ -117,12 +117,12 @@ const categoryData: Record<string, { title: string, theme: string, color: string
     hoverBorder: "group-hover:border-cyan-300",
     highlightBg: "bg-cyan-500",
     listings: [
-      { name: "Heavy Haul Transport", rating: 4.7, reviews: 34, location: "NH-2", phone: "+91 98765 77777", image: "https://images.unsplash.com/photo-1601584115197-04ecc0d2281b?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1586191552066-f52af0ebfaa4?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&q=80&w=150&h=150"] },
-      { name: "Local Pickup Movers", rating: 4.8, reviews: 56, location: "Karong", phone: "+91 98765 88888", image: "https://images.unsplash.com/photo-1554559409-f83134eaec11?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1549463051-7870e28d63a8?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1605810731086-4447477ba918?auto=format&fit=crop&q=80&w=150&h=150"] }
+      { name: "Heavy Haul Transport", location: "NH-2", phone: "+91  ", image: "https://images.unsplash.com/photo-1601584115197-04ecc0d2281b?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1586191552066-f52af0ebfaa4?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&q=80&w=150&h=150"] },
+      { name: "Local Pickup Movers", location: "Senapati", phone: "+91  ", image: "https://images.unsplash.com/photo-1554559409-f83134eaec11?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1549463051-7870e28d63a8?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1605810731086-4447477ba918?auto=format&fit=crop&q=80&w=150&h=150"] }
     ]
   },
   "photography": {
-    title: "Photos",
+    title: "Photography",
     theme: "from-teal-500/20",
     color: "text-teal-500",
     bg: "bg-teal-50",
@@ -130,8 +130,8 @@ const categoryData: Record<string, { title: string, theme: string, color: string
     hoverBorder: "group-hover:border-teal-300",
     highlightBg: "bg-teal-500",
     listings: [
-      { name: "Lens & Lights Studio", rating: 5.0, reviews: 120, location: "Main Bazar", phone: "+91 98765 99999", image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=150&h=150"] },
-      { name: "Memories Captured", rating: 4.9, reviews: 75, location: "Taphou", phone: "+91 98765 00000", image: "https://images.unsplash.com/photo-1554048665-6807897813a4?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1518131804797-7c64a38bd2c7?auto=format&fit=crop&q=80&w=150&h=150"] }
+      { name: "Lens & Lights Studio", location: "Main Bazar", phone: "+91  ", image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=150&h=150"] },
+      { name: "Memories Captured", location: "Senapati", phone: "+91  ", image: "https://images.unsplash.com/photo-1554048665-6807897813a4?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1518131804797-7c64a38bd2c7?auto=format&fit=crop&q=80&w=150&h=150"] }
     ]
   },
   "event-rental": {
@@ -143,8 +143,8 @@ const categoryData: Record<string, { title: string, theme: string, color: string
     hoverBorder: "group-hover:border-blue-300",
     highlightBg: "bg-blue-500",
     listings: [
-      { name: "Pioneer Party Equipments", rating: 4.8, reviews: 62, location: "Senapati Outskirts", phone: "+91 98765 12345", image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=80&w=150&h=150"] },
-      { name: "Classic Tents & Chairs", rating: 4.7, reviews: 45, location: "Karong Road", phone: "+91 98765 54321", image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1530103862676-de8892ebeea2?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1505368541998-cbf1c9b20757?auto=format&fit=crop&q=80&w=150&h=150"] }
+      { name: "Pioneer Party Equipments", location: "Senapati Outskirts", phone: "+91  ", image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=80&w=150&h=150"] },
+      { name: "Classic Tents & Chairs", location: "Senapati Road", phone: "+91  ", image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1530103862676-de8892ebeea2?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1505368541998-cbf1c9b20757?auto=format&fit=crop&q=80&w=150&h=150"] }
     ]
   },
   "catering": {
@@ -156,8 +156,8 @@ const categoryData: Record<string, { title: string, theme: string, color: string
     hoverBorder: "group-hover:border-emerald-300",
     highlightBg: "bg-emerald-500",
     listings: [
-      { name: "Spice & Smoke Catering", rating: 4.8, reviews: 54, location: "Senapati Bazar", phone: "+91 98765 10101", image: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1547573854-74d2a71d0826?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=150&h=150"] },
-      { name: "Traditional Feasts", rating: 4.9, reviews: 78, location: "Taphou", phone: "+91 98765 01010", image: "https://images.unsplash.com/photo-1579584425514-6fa1031d2794?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=150&h=150"] }
+      { name: "Spice & Smoke Catering", location: "Senapati Bazar", phone: "+91 98765 10101", image: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1547573854-74d2a71d0826?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=150&h=150"] },
+      { name: "Traditional Feasts", location: "Senapati", phone: "+91  ", image: "https://images.unsplash.com/photo-1579584425514-6fa1031d2794?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&q=80&w=150&h=150", "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=150&h=150"] }
     ]
   }
 };
@@ -176,14 +176,14 @@ export default function CategoryDetail() {
         hoverBorder: "group-hover:border-rose-300",
         highlightBg: "bg-rose-500",
         listings: [
-          { name: "John's Service", rating: 4.8, reviews: 34, location: "Main Bazar, Senapati", phone: "+91 98765 43210", image: "https://images.unsplash.com/photo-1553531384-cc64ac80f931?auto=format&fit=crop&q=80&w=400&h=300" }
+          { name: "John's Service", location: "Main Bazar, Senapati", phone: "+91 98765 43210", image: "https://images.unsplash.com/photo-1553531384-cc64ac80f931?auto=format&fit=crop&q=80&w=400&h=300" }
         ]
       };
 
   const { title, theme, color, bg, border, hoverBorder, highlightBg, listings } = category;
 
   return (
-    <div className="min-h-screen pt-32 pb-24 bg-slate-50 font-sans text-slate-600 relative overflow-hidden">
+    <div className="min-h-screen pt-32 pb-24 bg-slate-50 font-sans text-slate-600 relative">
       <div className={`absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br ${theme} to-transparent rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3`}></div>
       
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
@@ -221,13 +221,12 @@ export default function CategoryDetail() {
                 
                 <div className="flex-grow">
                   <h3 className={`text-2xl font-serif text-slate-900 mb-2 group-hover:${color} transition-colors font-bold`}>{listing.name}</h3>
-                  <div className="flex items-center gap-4 text-sm text-slate-500 mb-4 font-medium">
-                    <span className="flex items-center text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200/50 shadow-sm">
-                      <Star size={14} className="fill-amber-500 mr-1" /> {listing.rating}
-                    </span>
-                    <span>({listing.reviews} reviews)</span>
-                  </div>
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm text-slate-600 font-medium">
+                  {listing.items && (
+                    <div className="flex items-center gap-2 text-sm text-slate-500 mb-4 font-medium italic">
+                      Items: {listing.items}
+                    </div>
+                  )}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm text-slate-600 font-medium mt-4">
                     <span className="flex items-center border border-slate-200 bg-white shadow-sm px-3 py-1.5 rounded-xl"><MapPin size={16} className={`mr-2 ${color}`} /> {listing.location}</span>
                     <span className="flex items-center border border-slate-200 bg-white shadow-sm px-3 py-1.5 rounded-xl"><Phone size={16} className={`mr-2 ${color}`} /> {listing.phone}</span>
                   </div>

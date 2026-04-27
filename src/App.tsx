@@ -5,7 +5,7 @@ import {
   ArrowRight, Menu, X, ChevronRight, Briefcase, 
   CheckCircle2, Globe, Lightbulb, ShieldCheck, 
   Users, BarChart, Mail, Phone, HeartHandshake, CarFront, Store, Truck, Camera, Tent, Utensils, Bed,
-  School, Hospital, Stethoscope, Pill
+  School, Hospital, Stethoscope, Pill, MessageCircle
 } from 'lucide-react';
 import CategoryDetail from './pages/CategoryDetail';
 
@@ -197,7 +197,7 @@ const Mission = () => {
           
           <div className="grid grid-cols-2 gap-6 relative">
             <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-3xl p-6 sm:p-8 aspect-[4/5] sm:aspect-square flex flex-col justify-end relative overflow-hidden group shadow-xl shadow-emerald-500/20 border-4 border-white">
-              <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=800" alt="Verified Partner" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-60 mix-blend-overlay" />
+              <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800" alt="Verified stability" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-60 mix-blend-overlay" />
               <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/80 via-transparent to-transparent z-10"></div>
               <div className="relative z-20">
                 <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center mb-3 border border-white/30">
@@ -209,7 +209,7 @@ const Mission = () => {
             </motion.div>
             
             <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }} className="bg-gradient-to-br from-cyan-500 to-teal-500 rounded-3xl p-6 sm:p-8 aspect-[4/5] sm:aspect-square flex flex-col justify-end mt-12 relative overflow-hidden group shadow-xl shadow-cyan-500/20 border-4 border-white">
-              <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=800" alt="Direct Connection" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-60 mix-blend-overlay" />
+              <img src="https://images.unsplash.com/photo-1558486012-817176f84c6d?auto=format&fit=crop&q=80&w=800" alt="Direct Connection Network" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-60 mix-blend-overlay" />
               <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/80 via-transparent to-transparent z-10"></div>
               <div className="relative z-20">
                 <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center mb-3 border border-white/30">
@@ -237,7 +237,7 @@ const Directory = () => {
     { id: "clinic", title: "Clinics", icon: <Stethoscope size={24} strokeWidth={2} />, description: "Medical help.", color: "text-sky-500", bg: "bg-sky-100/30", border: "border-sky-100" },
     { id: "pharmacy", title: "Pharmacies", icon: <Pill size={24} strokeWidth={2} />, description: "Medicines.", color: "text-teal-600", bg: "bg-teal-100/30", border: "border-teal-100" },
     { id: "commercial-vehicle", title: "Trucks", icon: <Truck size={24} strokeWidth={2} />, description: "Transport.", color: "text-cyan-500", bg: "bg-cyan-100/30", border: "border-cyan-100" },
-    { id: "photography", title: "Photos", icon: <Camera size={24} strokeWidth={2} />, description: "Studio.", color: "text-indigo-500", bg: "bg-indigo-100/30", border: "border-indigo-100" },
+    { id: "photography", title: "Photography", icon: <Camera size={24} strokeWidth={2} />, description: "Studio.", color: "text-indigo-500", bg: "bg-indigo-100/30", border: "border-indigo-100" },
     { id: "event-rental", title: "Rentals", icon: <Tent size={24} strokeWidth={2} />, description: "Equipments.", color: "text-violet-500", bg: "bg-violet-100/30", border: "border-violet-100" },
     { id: "catering", title: "Catering", icon: <Utensils size={24} strokeWidth={2} />, description: "Services.", color: "text-fuchsia-500", bg: "bg-fuchsia-100/30", border: "border-fuchsia-100" }
   ];
@@ -275,6 +275,56 @@ const Directory = () => {
   );
 };
 
+const LaunchInfo = () => {
+  return (
+    <section id="launch" className="h-[100dvh] flex items-center py-20 bg-stone-900 text-white relative border-b border-stone-800 shrink-0 w-full overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-900/20 via-transparent to-transparent pointer-events-none"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10 w-full">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div>
+           
+            <div className="space-y-6">
+              <h3 className="text-xs uppercase tracking-widest font-bold text-stone-500 mb-4">Install to Mobile</h3>
+              <div className="grid gap-4">
+                {[
+                  { title: "Open in Browser", desc: "Visit senapati-connect.app on your phone." },
+                  { title: "Tap Menu / Share", desc: "Look for the browser menu or share icon." },
+                  { title: "Add to Home Screen", desc: "Select 'Add to Home Screen' to install." }
+                ].map((step, idx) => (
+                  <motion.div key={idx} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }} className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/10">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 font-bold text-sm">{idx + 1}</div>
+                    <div>
+                      <p className="font-bold text-sm text-white">{step.title}</p>
+                      <p className="text-xs text-stone-500">{step.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden lg:flex justify-center">
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="relative w-72 aspect-[9/19] bg-stone-800 rounded-[3rem] border-[8px] border-stone-700 shadow-2xl overflow-hidden shadow-emerald-500/10">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-stone-700 rounded-b-2xl z-20"></div>
+              <div className="absolute inset-0 bg-stone-900 flex flex-col items-center justify-center p-8 text-center">
+                <LogoMark size="md" />
+                <h4 className="font-serif text-xl mt-4 mb-2">Connect Local</h4>
+                <p className="text-[10px] text-stone-500 uppercase tracking-widest">Launching May 2026</p>
+                <div className="mt-12 w-full space-y-3">
+                  <div className="h-2 w-full bg-white/5 rounded-full"></div>
+                  <div className="h-2 w-3/4 bg-white/5 rounded-full"></div>
+                  <div className="h-2 w-1/2 bg-white/5 rounded-full"></div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const Contact = () => {
   const [formData, setFormData] = React.useState({ name: '', email: '', message: '' });
   const [status, setStatus] = React.useState('');
@@ -305,12 +355,12 @@ const Contact = () => {
             
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-stone-700">
-                <div className="w-10 h-10 rounded-xl bg-white border border-emerald-100 flex items-center justify-center text-emerald-600 shadow-sm"><Phone size={18} /></div>
-                <span className="font-medium text-sm">+91 12345 67890</span>
+                <div className="w-10 h-10 rounded-xl bg-white border border-emerald-100 flex items-center justify-center text-emerald-600 shadow-sm"><MessageCircle size={18} /></div>
+                <span className="font-medium text-sm">Whatsapp +91 84148 32877</span>
               </div>
               <div className="flex items-center gap-3 text-stone-700">
                 <div className="w-10 h-10 rounded-xl bg-white border border-emerald-100 flex items-center justify-center text-emerald-600 shadow-sm"><Mail size={18} /></div>
-                <span className="font-medium text-sm">connect@senapati.com</span>
+                <span className="font-medium text-sm">senapaticonnect@gmail.com</span>
               </div>
             </div>
           </div>
@@ -374,6 +424,9 @@ const HomePage = () => {
       <div id="mission" className="snap-start shrink-0 h-screen">
         <Mission />
       </div>
+      <div id="launch" className="snap-start shrink-0 h-screen">
+        <LaunchInfo />
+      </div>
       <div id="contact" className="snap-start shrink-0 h-screen flex flex-col">
         <div className="flex-grow flex items-center">
           <Contact />
@@ -409,9 +462,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToAnchor />
-      <div className="min-h-screen font-sans antialiased text-stone-600 bg-stone-50 selection:bg-emerald-200 selection:text-stone-900 flex flex-col h-screen overflow-hidden">
+      <div className="min-h-screen font-sans antialiased text-stone-600 bg-stone-50 selection:bg-emerald-200 selection:text-stone-900 flex flex-col">
         <Navbar />
-        <main className="flex-grow overflow-hidden">
+        <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/category/:categoryId" element={<CategoryDetail />} />
