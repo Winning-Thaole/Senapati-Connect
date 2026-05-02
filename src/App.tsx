@@ -9,12 +9,14 @@ import {
 } from 'lucide-react';
 import CategoryDetail from './pages/CategoryDetail';
 
-const LogoMark = ({ isScrolled, size = 'md' }: { isScrolled?: boolean, size?: 'md' | 'lg' }) => {
-  const sizeClass = size === 'lg' ? 'w-16 h-16 sm:w-20 sm:h-20' : 'w-12 h-12 sm:w-14 sm:h-14';
+const LogoMark = ({ isScrolled, size = 'md' }: { isScrolled?: boolean, size?: 'sm' | 'md' | 'lg' }) => {
+  let sizeClass = 'h-10 sm:h-12';
+  if (size === 'lg') sizeClass = 'h-16 sm:h-20';
+  if (size === 'sm') sizeClass = 'h-8 sm:h-10';
 
   return (
-    <div className={`relative flex items-center justify-center ${sizeClass} transition-transform duration-500 hover:scale-105 flex-shrink-0`}>
-      <img src="/icon.svg" alt="Senapati Connect Logo" className="w-full h-full object-contain drop-shadow-sm" />
+    <div className={`relative flex items-center justify-start ${sizeClass} transition-transform duration-500 hover:scale-105 flex-shrink-0`}>
+      <img src="/Logo.webp" alt="Senapati Connect Logo" className="w-auto h-full object-contain" />
     </div>
   );
 };
@@ -37,34 +39,29 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-md border-b border-emerald-100 py-4 shadow-sm' : 'bg-transparent border-b border-transparent py-6 lg:py-8'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex justify-between items-center">
-        <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3 group cursor-pointer">
-          <LogoMark size={isScrolled ? 'md' : 'lg'} />
-          <span className={`font-serif tracking-wide hidden sm:block text-lg font-bold transition-colors text-stone-900 group-hover:text-emerald-700`}>
-            Senapati Connect
-          </span>
-          <span className={`font-serif tracking-wide sm:hidden text-base font-bold transition-colors text-stone-900 group-hover:text-emerald-700`}>
-            SC
-          </span>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0f172a] shadow-md border-b border-white/5 py-4 px-6 sm:px-8">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-4 group cursor-pointer w-auto lg:w-1/4">
+          <LogoMark size="sm" />
+          {/* Text is removed since logo includes it */}
         </Link>
         
-        <div className="hidden md:flex items-center gap-8 bg-stone-50 border border-stone-200 backdrop-blur-md shadow-sm px-8 py-3 rounded-full">
+        <div className="hidden md:flex items-center justify-center gap-8 lg:w-2/4">
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} className={`text-[11px] uppercase tracking-widest font-bold transition-colors text-stone-600 hover:text-emerald-600`}>
+            <a key={link.name} href={link.href} className="text-xs uppercase tracking-widest font-bold transition-all text-slate-300 hover:text-indigo-400 hover:scale-105 flex items-center">
               {link.name}
             </a>
           ))}
         </div>
 
-        <div className="hidden md:flex">
-          <a href="/#contact" className="px-6 py-3 rounded-full text-[11px] uppercase tracking-widest font-bold transition-colors shadow-lg bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-500/25">
+        <div className="hidden md:flex lg:w-1/4 justify-end">
+          <a href="/#contact" className="px-6 py-2.5 rounded-full text-xs uppercase tracking-widest font-bold transition-all shadow-lg bg-indigo-500 text-slate-100 hover:bg-indigo-400 hover:shadow-indigo-500/25 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center">
             Get in Touch
           </a>
         </div>
 
-        <div className="md:hidden">
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 text-stone-900 hover:text-emerald-600 transition-colors">
+        <div className="md:hidden flex items-center">
+          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 text-slate-300 hover:text-indigo-400 hover:bg-slate-800 rounded-md transition-all flex items-center justify-center">
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -73,23 +70,24 @@ const Navbar = () => {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div 
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full bg-white border-b border-emerald-100 shadow-xl py-4 flex flex-col md:hidden"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-full left-0 w-full bg-[#0f172a] shadow-2xl border-b border-white/5 py-4 px-6 flex flex-col md:hidden"
           >
             {navLinks.map((link) => (
               <a 
-                key={link.name} 
+                key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-xs uppercase tracking-widest font-bold text-stone-600 hover:text-emerald-600 p-4 border-b border-stone-50"
+                className="text-sm uppercase tracking-widest font-bold text-slate-300 hover:text-indigo-400 py-3 border-b border-white/5 transition-colors"
               >
                 {link.name}
               </a>
             ))}
-            <div className="p-4">
-              <a href="/#contact" onClick={() => setMobileMenuOpen(false)} className="block w-full bg-emerald-600 text-white rounded-xl px-6 py-4 text-xs tracking-widest text-center uppercase font-bold shadow-lg shadow-emerald-500/25">
+            <div className="pt-4 mt-2">
+              <a href="/#contact" onClick={() => setMobileMenuOpen(false)} className="block w-full bg-indigo-500 text-white rounded-md px-6 py-3 text-sm tracking-widest text-center uppercase font-bold shadow-lg shadow-indigo-500/20 active:scale-95 transition-transform">
                 Get in Touch
               </a>
             </div>
@@ -102,62 +100,62 @@ const Navbar = () => {
 
 const Hero = () => {
   return (
-    <section className="h-full overflow-hidden relative flex items-center bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-500 text-white border-b-8 border-emerald-900/20">
+    <section className="min-h-[100dvh] pt-48 pb-32 overflow-hidden relative flex items-center bg-slate-900 text-white selection:bg-indigo-500 selection:text-white">
       
-      {/* Bright abstract shapes */}
-      <div className="absolute top-0 right-0 w-[50vw] h-full bg-gradient-to-bl from-lime-400/30 to-transparent skew-x-12 translate-x-32 -z-10 blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-emerald-500/30 rounded-full blur-[100px] -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
+      {/* Dark theme dramatic background elements */}
+      <div className="absolute top-0 right-0 w-[60vw] h-[60vw] bg-indigo-900/20 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] bg-blue-900/20 rounded-full blur-[100px] -translate-x-1/2 translate-y-1/3 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="max-w-2xl">
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm text-white text-[10px] uppercase tracking-widest mb-8 font-bold">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10 w-full">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.25, 0.8, 0.25, 1] }} className="max-w-2xl py-12">
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 text-[11px] uppercase tracking-widest mb-10 font-bold backdrop-blur-md transition-all hover:bg-indigo-500/20 glass-panel">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-300 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-lime-400"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
               </span>
               Local Service Directory
             </div>
-            <h1 className="text-5xl lg:text-6xl xl:text-7xl font-serif leading-[1.1] mb-8 tracking-tight drop-shadow-sm">
-              Discover <span className="text-lime-300 italic">Senapati's</span> Brightest
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-display font-extrabold leading-[1.05] mb-10 tracking-tight text-white">
+              Discover <br className="hidden sm:block" /><span className="text-indigo-400 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-400">Senapati's</span> Brightest
             </h1>
-            <div className="text-lg text-emerald-50 font-light leading-relaxed max-w-xl mb-10 space-y-4">
-              <p className="text-xl font-medium text-white drop-shadow-sm">
+            <div className="text-lg sm:text-xl text-slate-300 font-medium leading-relaxed max-w-xl mb-12 space-y-6">
+              <p className="font-medium text-slate-200">
                 Your community marketplace to discover trusted local vendors, services, and entrepreneurs.
               </p>
-              <p className="opacity-90">
+              <p className="opacity-80 text-base sm:text-lg">
                 This platform connects people with local entrepreneurs, making it easier to find and access essential services in one place.
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 mt-8">
-              <a href="#directory" className="bg-white text-emerald-600 hover:bg-stone-50 rounded-full px-6 py-3.5 sm:px-8 sm:py-4 w-full sm:w-auto text-xs uppercase tracking-widest font-bold transition-colors shadow-lg flex justify-center items-center gap-3">
-                Browse Directory <ArrowRight size={16} className="text-emerald-500" />
+            <div className="flex flex-col sm:flex-row gap-6 mt-8">
+              <a href="#directory" className="bg-indigo-500 text-slate-950 hover:bg-indigo-400 rounded-xl px-10 py-5 sm:px-12 sm:py-6 w-full sm:w-auto text-sm uppercase tracking-widest font-bold transition-all shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 hover:-translate-y-1 active:translate-y-0 flex justify-center items-center gap-3">
+                Browse Directory <ArrowRight size={18} />
               </a>
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }} className="relative hidden lg:block h-[600px] w-full max-w-md ml-auto">
-             <div className="w-full h-full rounded-3xl overflow-hidden relative group shadow-2xl shadow-emerald-900/40 border-[4px] border-white/20 bg-white/10 backdrop-blur-sm p-2">
-                <div className="w-full h-full rounded-2xl overflow-hidden relative">
-                  <div className="absolute inset-0 bg-emerald-900/20 z-10 pointer-events-none transition-opacity duration-500 group-hover:opacity-0 mix-blend-multiply"></div>
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.8, 0.25, 1] }} className="relative hidden lg:block h-[600px] xl:h-[700px] w-full max-w-lg ml-auto">
+             <div className="w-full h-full rounded-xl overflow-hidden relative group glass-panel p-4">
+                <div className="w-full h-full rounded-xl overflow-hidden relative glass-panel">
+                  <div className="absolute inset-0 bg-slate-900/30 z-10 pointer-events-none transition-opacity duration-700 group-hover:opacity-0 mix-blend-multiply"></div>
                   <img 
-                    src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=900" 
-                    alt="Fresh produce market" 
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover transition-all duration-700 ease-in-out transform group-hover:scale-105"
+                    src="/senapati_town.png" 
+                    alt="Senapati Town" 
+                    className="w-full h-full object-cover transition-all duration-1000 ease-in-out transform group-hover:scale-105"
                   />
-                  <div className="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-emerald-950/90 to-transparent z-10 pointer-events-none rounded-b-2xl"></div>
-                </div>
-                
-                <div className="absolute bottom-10 left-10 right-10 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 z-20">
-                  <h3 className="font-serif text-3xl text-white mb-2 drop-shadow-md">Local Commerce</h3>
-                  <p className="text-emerald-100 text-sm font-medium leading-relaxed drop-shadow">Empowering communities by connecting local entrepreneurs with people who need their services.</p>
+                  <div className="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-slate-900 flex flex-col justify-end p-10 z-10 pointer-events-none rounded-b-xl">
+                    <div className="transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.25,0.8,0.25,1)]">
+                      <h3 className="font-display text-3xl font-bold text-white mb-3 tracking-tight">Local Commerce</h3>
+                      <p className="text-slate-300 text-base font-medium leading-relaxed">Empowering communities by connecting local entrepreneurs with people who need their services.</p>
+                    </div>
+                  </div>
                 </div>
              </div>
              
              {/* Decorative backing shape */}
-             <div className="absolute -top-6 -right-6 w-32 h-32 bg-lime-400 rounded-full blur-2xl opacity-60 -z-10 animate-pulse"></div>
+             <div className="absolute -top-12 -right-12 w-48 h-48 bg-indigo-500 rounded-full blur-[80px] opacity-20 -z-10 animate-pulse"></div>
           </motion.div>
         </div>
       </div>
@@ -165,60 +163,63 @@ const Hero = () => {
   );
 };
 
-
-
 const Mission = () => {
   return (
-    <section id="mission" className="h-full flex items-center py-20 bg-stone-50/50 relative border-b border-emerald-100 shrink-0 w-full overflow-hidden">
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-b from-emerald-100/50 to-transparent -z-10"></div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="flex flex-col gap-6">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase tracking-widest w-max mb-2">Our Mission</div>
-            <h2 className="text-4xl lg:text-5xl font-serif text-stone-900 leading-tight">
-              Community <span className="text-emerald-600 italic">Connected</span>, Trust Restored.
+    <section id="mission" className="py-40 bg-slate-900 relative border-t border-b border-white/5 shrink-0 w-full overflow-hidden">
+      <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-indigo-900/10 to-transparent -z-10 blur-3xl"></div>
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-20 lg:gap-24 items-center">
+            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: [0.25, 0.8, 0.25, 1] }} className="flex flex-col gap-8 py-8">
+            <div className="inline-block px-5 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[11px] font-bold uppercase tracking-widest w-max mb-2">Our Mission</div>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white leading-[1.1] tracking-tight">
+              Community <span className="text-indigo-400">Connected</span>,<br/> Trust Restored.
             </h2>
-            <div className="bg-white/50 border-l-4 border-emerald-500 p-6 rounded-r-2xl shadow-sm italic text-stone-600 font-light leading-relaxed">
-              "We believe in the power of local connection. Our mission is to bridge the gap between people and the trusted experts who serve our community every day."
+            <div className="glass-panel border-l-4 border-indigo-500 p-8 sm:p-12 rounded-xl rounded-l-none text-slate-300 font-medium leading-relaxed text-lg sm:text-xl">
+              <span className="text-2xl text-indigo-500 font-serif opacity-50 mr-2">"</span>
+              We believe in the power of local connection. Our mission is to bridge the gap between people and the trusted experts who serve our community every day.
+              <span className="text-2xl text-indigo-500 font-serif opacity-50 ml-2">"</span>
             </div>
-            <ul className="space-y-4 mt-2">
+            <ul className="space-y-6 mt-4">
               {[
                 "Reliability built on verified local expertise.",
                 "Handpicked network of professional service providers.",
                 "Seamless communication connecting you directly."
               ].map((item, idx) => (
-                <li key={idx} className="flex items-start gap-4">
-                  <div className="mt-1"><CheckCircle2 className="text-emerald-500" size={18} strokeWidth={2.5} /></div>
-                  <span className="text-stone-700 font-medium text-sm sm:text-base">{item}</span>
+                <li key={idx} className="flex items-start gap-5">
+                  <div className="mt-1 bg-slate-800 p-1.5 rounded-full"><CheckCircle2 className="text-indigo-400" size={18} strokeWidth={2.5} /></div>
+                  <span className="text-slate-300 font-medium text-base sm:text-lg">{item}</span>
                 </li>
               ))}
             </ul>
           </motion.div>
           
-          <div className="grid grid-cols-2 gap-6 relative">
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-3xl p-6 sm:p-8 aspect-[4/5] sm:aspect-square flex flex-col justify-end relative overflow-hidden group shadow-xl shadow-emerald-500/20 border-4 border-white">
-              <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800" alt="Verified stability" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-60 mix-blend-overlay" />
-              <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/80 via-transparent to-transparent z-10"></div>
+          <div className="grid grid-cols-2 gap-6 sm:gap-8 relative p-4">
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.25, 0.8, 0.25, 1] }} className="glass-panel hover:glass-panel-hover rounded-xl p-10 sm:p-12 aspect-[4/5] sm:aspect-square flex flex-col justify-end relative overflow-hidden group transition-colors duration-500">
+              <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800" alt="Verified stability" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-1000 opacity-40 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-50" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent z-10 transition-opacity duration-700"></div>
               <div className="relative z-20">
-                <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center mb-3 border border-white/30">
-                  <ShieldCheck size={20} className="text-white" strokeWidth={2} />
+                <div className="w-16 h-16 bg-indigo-500/20 backdrop-blur-md rounded-xl flex items-center justify-center mb-8 border border-indigo-500/30 text-indigo-400 group-hover:scale-110 duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)]">
+                  <ShieldCheck size={28} strokeWidth={2} />
                 </div>
-                <p className="font-serif text-xl sm:text-2xl text-white mb-0.5 tracking-wide leading-tight">Verified</p>
-                <p className="text-[9px] sm:text-[10px] uppercase tracking-widest text-emerald-100 font-bold">Local Partners</p>
+                <p className="font-display text-2xl sm:text-3xl font-bold text-white mb-2 tracking-tight">Verified</p>
+                <p className="text-[11px] uppercase tracking-widest text-indigo-400 font-bold">Local Partners</p>
               </div>
             </motion.div>
             
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }} className="bg-gradient-to-br from-cyan-500 to-teal-500 rounded-3xl p-6 sm:p-8 aspect-[4/5] sm:aspect-square flex flex-col justify-end mt-12 relative overflow-hidden group shadow-xl shadow-cyan-500/20 border-4 border-white">
-              <img src="https://images.unsplash.com/photo-1558486012-817176f84c6d?auto=format&fit=crop&q=80&w=800" alt="Direct Connection Network" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-60 mix-blend-overlay" />
-              <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/80 via-transparent to-transparent z-10"></div>
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.8, 0.25, 1] }} className="glass-panel hover:glass-panel-hover rounded-xl p-10 sm:p-12 aspect-[4/5] sm:aspect-square flex flex-col justify-end mt-16 sm:mt-20 relative overflow-hidden group transition-colors duration-500">
+              <img src="https://images.unsplash.com/photo-1558486012-817176f84c6d?auto=format&fit=crop&q=80&w=800" alt="Direct Connection Network" className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-1000 opacity-40 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-50" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent z-10 transition-opacity duration-700"></div>
               <div className="relative z-20">
-                <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center mb-3 border border-white/30">
-                  <HeartHandshake size={20} className="text-white" strokeWidth={2} />
+                <div className="w-16 h-16 bg-blue-500/20 backdrop-blur-md rounded-xl flex items-center justify-center mb-8 border border-blue-500/30 text-blue-400 group-hover:scale-110 duration-500 ease-[cubic-bezier(0.25,0.8,0.25,1)]">
+                  <HeartHandshake size={28} strokeWidth={2} />
                 </div>
-                <p className="font-serif text-xl sm:text-2xl text-white tracking-wide mb-0.5 leading-tight">Connected</p>
-                <p className="text-[9px] sm:text-[10px] uppercase tracking-widest text-cyan-100 font-bold">Directly to You</p>
+                <p className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2">Connected</p>
+                <p className="text-[11px] uppercase tracking-widest text-blue-400 font-bold">Directly to You</p>
               </div>
             </motion.div>
+
+            {/* Ambient glow behind cards */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-indigo-500/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
           </div>
         </div>
       </div>
@@ -228,97 +229,45 @@ const Mission = () => {
 
 const Directory = () => {
   const categories = [
-    { id: "hotel", title: "Hotels", icon: <Bed size={24} strokeWidth={2} />, description: "Best stays.", color: "text-blue-500", bg: "bg-blue-100/30", border: "border-blue-100" },
-    { id: "wedding-planner", title: "Weddings", icon: <HeartHandshake size={24} strokeWidth={2} />, description: "Planners.", color: "text-rose-500", bg: "bg-rose-100/30", border: "border-rose-100" },
-    { id: "taxi-service", title: "Taxis", icon: <CarFront size={24} strokeWidth={2} />, description: "Uber/Taxi.", color: "text-amber-500", bg: "bg-amber-100/30", border: "border-amber-100" },
-    { id: "local-shop", title: "Shops", icon: <Store size={24} strokeWidth={2} />, description: "Essentials.", color: "text-emerald-500", bg: "bg-emerald-100/30", border: "border-emerald-100" },
-    { id: "school", title: "Schools", icon: <School size={24} strokeWidth={2} />, description: "Education.", color: "text-indigo-600", bg: "bg-indigo-100/30", border: "border-indigo-100" },
-    { id: "hospital", title: "Hospitals", icon: <Hospital size={24} strokeWidth={2} />, description: "Healthcare.", color: "text-red-500", bg: "bg-red-100/30", border: "border-red-100" },
-    { id: "clinic", title: "Clinics", icon: <Stethoscope size={24} strokeWidth={2} />, description: "Medical help.", color: "text-sky-500", bg: "bg-sky-100/30", border: "border-sky-100" },
-    { id: "pharmacy", title: "Pharmacies", icon: <Pill size={24} strokeWidth={2} />, description: "Medicines.", color: "text-teal-600", bg: "bg-teal-100/30", border: "border-teal-100" },
-    { id: "commercial-vehicle", title: "Trucks", icon: <Truck size={24} strokeWidth={2} />, description: "Transport.", color: "text-cyan-500", bg: "bg-cyan-100/30", border: "border-cyan-100" },
-    { id: "photography", title: "Photography", icon: <Camera size={24} strokeWidth={2} />, description: "Studio.", color: "text-indigo-500", bg: "bg-indigo-100/30", border: "border-indigo-100" },
-    { id: "event-rental", title: "Rentals", icon: <Tent size={24} strokeWidth={2} />, description: "Equipments.", color: "text-violet-500", bg: "bg-violet-100/30", border: "border-violet-100" },
-    { id: "catering", title: "Catering", icon: <Utensils size={24} strokeWidth={2} />, description: "Services.", color: "text-fuchsia-500", bg: "bg-fuchsia-100/30", border: "border-fuchsia-100" }
+    { id: "hotel", title: "Hotels", icon: <Bed size={24} />, description: "Best stays.", color: "text-blue-400 group-hover:text-blue-300", bg: "bg-blue-500/10", border: "border-blue-500/20", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.3)]" },
+    { id: "wedding-planner", title: "Weddings", icon: <HeartHandshake size={24} />, description: "Planners.", color: "text-pink-400 group-hover:text-pink-300", bg: "bg-pink-500/10", border: "border-pink-500/20", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(236,72,153,0.3)]" },
+    { id: "taxi-service", title: "Taxis", icon: <CarFront size={24} />, description: "Uber/Taxi.", color: "text-amber-400 group-hover:text-amber-300", bg: "bg-amber-500/10", border: "border-amber-500/20", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(245,158,11,0.3)]" },
+    { id: "local-shop", title: "Shops", icon: <Store size={24} />, description: "Essentials.", color: "text-emerald-400 group-hover:text-emerald-300", bg: "bg-emerald-500/10", border: "border-emerald-500/20", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(16,185,129,0.3)]" },
+    { id: "school", title: "Schools", icon: <School size={24} />, description: "Education.", color: "text-indigo-400 group-hover:text-indigo-300", bg: "bg-indigo-500/10", border: "border-indigo-500/20", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(99,102,241,0.3)]" },
+    { id: "hospital", title: "Hospitals", icon: <Hospital size={24} />, description: "Healthcare.", color: "text-red-400 group-hover:text-red-300", bg: "bg-red-500/10", border: "border-red-500/20", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(239,68,68,0.3)]" },
+    { id: "others", title: "Others", icon: <Stethoscope size={24} />, description: "Other services.", color: "text-teal-400 group-hover:text-teal-300", bg: "bg-teal-500/10", border: "border-teal-500/20", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(20,184,166,0.3)]" },
+    { id: "pharmacy", title: "Pharmacies", icon: <Pill size={24} />, description: "Medicines.", color: "text-emerald-400 group-hover:text-emerald-300", bg: "bg-emerald-500/10", border: "border-emerald-500/20", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(34,197,94,0.3)]" },
+    { id: "commercial-vehicle", title: "Trucks", icon: <Truck size={24} />, description: "Transport.", color: "text-cyan-400 group-hover:text-cyan-300", bg: "bg-cyan-500/10", border: "border-cyan-500/20", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(6,182,212,0.3)]" },
+    { id: "photography", title: "Photography", icon: <Camera size={24} />, description: "Studio.", color: "text-purple-400 group-hover:text-purple-300", bg: "bg-purple-500/10", border: "border-purple-500/20", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(139,92,246,0.3)]" },
+    { id: "event-rental", title: "Rentals", icon: <Tent size={24} />, description: "Equipments.", color: "text-violet-400 group-hover:text-violet-300", bg: "bg-violet-500/10", border: "border-violet-500/20", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.3)]" },
+    { id: "catering", title: "Catering", icon: <Utensils size={24} />, description: "Services.", color: "text-fuchsia-400 group-hover:text-fuchsia-300", bg: "bg-fuchsia-500/10", border: "border-fuchsia-500/20", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(217,70,239,0.3)]" }
   ];
 
   return (
-    <section className="h-full flex items-center py-12 bg-gradient-to-br from-stone-50 via-white to-stone-50 relative border-b border-emerald-100 shrink-0 w-full">
-      <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-        <div className="absolute top-10 left-10 w-64 h-64 bg-emerald-200 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-10 right-10 w-64 h-64 bg-cyan-200 rounded-full blur-[100px]"></div>
-      </div>
+    <section className="py-40 bg-slate-900 relative shrink-0 w-full z-10">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-[500px] bg-slate-900/50 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10 w-full">
-        <div className="mb-8 text-center">
-          <h2 className="text-3xl font-serif text-stone-900 mb-2">Service Directory</h2>
-          <p className="text-stone-500 font-light text-xs uppercase tracking-widest">Explore Local Services • Quick Access</p>
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10 w-full">
+        <div className="mb-24 text-center max-w-3xl mx-auto">
+          <h2 className="text-4xl sm:text-5xl font-display font-bold text-slate-100 mb-6 tracking-tight">Service Directory</h2>
+          <p className="text-slate-400 font-medium text-sm sm:text-base uppercase tracking-[0.2em]">Trusted Local Experts • Quick Access</p>
         </div>
 
-        <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 max-w-6xl mx-auto">
           {categories.map((cat, idx) => (
-            <motion.div key={idx} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: idx * 0.02 }}>
-              <Link to={`/category/${cat.id}`} className={`block bg-white border ${cat.border} rounded-2xl p-3 sm:p-5 hover:shadow-md transition-all duration-300 group text-center active:scale-95 shadow-sm`}>
-                 <div className={`w-10 h-10 rounded-xl mx-auto mb-2 flex items-center justify-center transition-all duration-300 ${cat.bg} ${cat.color}`}>
+            <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, delay: idx * 0.05, ease: [0.25, 0.8, 0.25, 1] }}>
+              <Link to={`/category/${cat.id}`} className={`block glass-panel hover:glass-panel-hover rounded-xl p-10 sm:p-12 transition-all duration-500 group text-center shadow-xl ${cat.glow} relative overflow-hidden h-full flex flex-col justify-center items-center gap-2`}>
+                 <div className="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                 <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-xl mx-auto mb-6 flex items-center justify-center transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 ${cat.bg} ${cat.color} ${cat.border} border`}>
                    {cat.icon}
                  </div>
-                 <h3 className="font-serif text-[10px] sm:text-xs font-bold text-stone-900 mb-0.5 leading-tight">{cat.title}</h3>
-                 <p className="text-[8px] sm:text-[9px] text-stone-400 leading-tight uppercase tracking-tight">
-                   Explore
+                 <h3 className="font-display text-lg sm:text-xl font-bold text-slate-200 mb-2 leading-tight group-hover:text-white transition-colors">{cat.title}</h3>
+                 <p className="text-[11px] text-slate-500 font-bold tracking-widest uppercase group-hover:text-slate-400 transition-colors">
+                   Tap to Explore
                  </p>
               </Link>
             </motion.div>
           ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const LaunchInfo = () => {
-  return (
-    <section id="launch" className="h-[100dvh] flex items-center py-20 bg-stone-900 text-white relative border-b border-stone-800 shrink-0 w-full overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-900/20 via-transparent to-transparent pointer-events-none"></div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10 w-full">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-           
-            <div className="space-y-6">
-              <h3 className="text-xs uppercase tracking-widest font-bold text-stone-500 mb-4">Install to Mobile</h3>
-              <div className="grid gap-4">
-                {[
-                  { title: "Open in Browser", desc: "Visit senapati-connect.app on your phone." },
-                  { title: "Tap Menu / Share", desc: "Look for the browser menu or share icon." },
-                  { title: "Add to Home Screen", desc: "Select 'Add to Home Screen' to install." }
-                ].map((step, idx) => (
-                  <motion.div key={idx} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }} className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/10">
-                    <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 font-bold text-sm">{idx + 1}</div>
-                    <div>
-                      <p className="font-bold text-sm text-white">{step.title}</p>
-                      <p className="text-xs text-stone-500">{step.desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="hidden lg:flex justify-center">
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="relative w-72 aspect-[9/19] bg-stone-800 rounded-[3rem] border-[8px] border-stone-700 shadow-2xl overflow-hidden shadow-emerald-500/10">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-stone-700 rounded-b-2xl z-20"></div>
-              <div className="absolute inset-0 bg-stone-900 flex flex-col items-center justify-center p-8 text-center">
-                <LogoMark size="md" />
-                <h4 className="font-serif text-xl mt-4 mb-2">Connect Local</h4>
-                <p className="text-[10px] text-stone-500 uppercase tracking-widest">Launching May 2026</p>
-                <div className="mt-12 w-full space-y-3">
-                  <div className="h-2 w-full bg-white/5 rounded-full"></div>
-                  <div className="h-2 w-3/4 bg-white/5 rounded-full"></div>
-                  <div className="h-2 w-1/2 bg-white/5 rounded-full"></div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
         </div>
       </div>
     </section>
@@ -333,7 +282,6 @@ const Contact = () => {
     e.preventDefault();
     setStatus('submitting');
     
-    // Mocking submission or using Netlify forms logic
     setTimeout(() => {
         setStatus('success');
         setFormData({ name: '', email: '', message: '' });
@@ -341,52 +289,53 @@ const Contact = () => {
   };
 
   return (
-    <section className="h-full flex items-center py-12 bg-gradient-to-tr from-stone-50 to-emerald-50/50 relative border-b border-emerald-200 overflow-hidden shrink-0 w-full">
-      <div className="absolute top-0 right-0 w-64 h-64 bg-teal-200/20 rounded-full blur-[80px] pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
+    <section className="py-40 bg-slate-900 relative border-t border-white/5 overflow-hidden shrink-0 w-full z-10">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-900/20 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/3"></div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10 w-full">
-        <div className="grid lg:grid-cols-2 gap-8 items-center max-w-5xl mx-auto">
-          <div className="hidden lg:block">
-            <div className="inline-block px-4 py-1 rounded-full bg-white/60 backdrop-blur-sm border border-emerald-100 text-emerald-700 text-[10px] font-bold uppercase tracking-widest w-max mb-6">Contact</div>
-            <h2 className="text-4xl font-serif text-stone-900 mb-6 leading-tight">Join the <span className="text-emerald-600 italic">Network</span></h2>
-            <p className="text-stone-600 font-light leading-relaxed mb-10 text-lg">
-              Empowering local entrepreneurs by connecting them with the community.
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10 w-full">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center max-w-6xl mx-auto">
+          <div className="lg:pr-8">
+            <div className="inline-block px-5 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[11px] font-bold uppercase tracking-widest w-max mb-8 backdrop-blur-sm">Contact</div>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white mb-8 leading-[1.1] tracking-tight">Join the <span className="text-indigo-400">Network</span></h2>
+            <p className="text-slate-400 font-medium leading-relaxed mb-12 text-lg sm:text-xl">
+              Empowering local entrepreneurs by connecting them with the community. Let's build something great together.
             </p>
             
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 text-stone-700">
-                <div className="w-10 h-10 rounded-xl bg-white border border-emerald-100 flex items-center justify-center text-emerald-600 shadow-sm"><MessageCircle size={18} /></div>
-                <span className="font-medium text-sm">Whatsapp +91 84148 32877</span>
+            <div className="space-y-6">
+              <div className="flex items-center gap-5 text-slate-300 group">
+                <div className="w-14 h-14 rounded-xl glass-panel flex items-center justify-center text-indigo-400 group-hover:border-indigo-500/30 group-hover:bg-indigo-500/5 transition-all duration-300"><MessageCircle size={22} /></div>
+                <span className="font-medium text-base sm:text-lg group-hover:text-white transition-colors">Whatsapp +91 84148 32877</span>
               </div>
-              <div className="flex items-center gap-3 text-stone-700">
-                <div className="w-10 h-10 rounded-xl bg-white border border-emerald-100 flex items-center justify-center text-emerald-600 shadow-sm"><Mail size={18} /></div>
-                <span className="font-medium text-sm">senapaticonnect@gmail.com</span>
+              <div className="flex items-center gap-5 text-slate-300 group">
+                <div className="w-14 h-14 rounded-xl glass-panel flex items-center justify-center text-indigo-400 group-hover:border-indigo-500/30 group-hover:bg-indigo-500/5 transition-all duration-300"><Mail size={22} /></div>
+                <span className="font-medium text-base sm:text-lg group-hover:text-white transition-colors">senapaticonnect@gmail.com</span>
               </div>
             </div>
           </div>
           
-          <div className="bg-white/80 backdrop-blur-md border border-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500"></div>
-            <h3 className="text-xl font-serif font-bold text-stone-900 mb-6 lg:hidden">Get in Touch</h3>
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <div className="grid grid-cols-2 gap-4">
+          <div className="glass-panel rounded-xl p-10 sm:p-14 relative overflow-hidden transition-all duration-500">
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-indigo-500 to-blue-400"></div>
+            <h3 className="text-2xl font-display font-bold text-white mb-8 lg:hidden">Get in Touch</h3>
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-stone-500 mb-1 font-bold">Name</label>
-                  <input type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required className="w-full px-4 py-3 rounded-xl bg-stone-50 border border-stone-100 focus:outline-none focus:border-emerald-500 focus:bg-white transition-all text-sm" placeholder="Name" />
+                  <label className="block text-[11px] uppercase tracking-widest text-slate-400 mb-2 font-bold">Name</label>
+                  <input type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required className="w-full px-5 py-4 min-h-[44px] rounded-xl bg-slate-900 border border-white/10 text-white focus:outline-none focus:border-indigo-500 hover:border-white/20 transition-all text-base placeholder:text-slate-600" placeholder="Your name" />
                 </div>
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-stone-500 mb-1 font-bold">Email</label>
-                  <input type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} required className="w-full px-4 py-3 rounded-xl bg-stone-50 border border-stone-100 focus:outline-none focus:border-emerald-500 focus:bg-white transition-all text-sm" placeholder="Email" />
+                  <label className="block text-[11px] uppercase tracking-widest text-slate-400 mb-2 font-bold">Email</label>
+                  <input type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} required className="w-full px-5 py-4 min-h-[44px] rounded-xl bg-slate-900 border border-white/10 text-white focus:outline-none focus:border-indigo-500 hover:border-white/20 transition-all text-base placeholder:text-slate-600" placeholder="your@email.com" />
                 </div>
               </div>
               <div>
-                <label className="block text-[10px] uppercase tracking-widest text-stone-500 mb-1 font-bold">Message</label>
-                <textarea rows={3} value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} required className="w-full px-4 py-3 rounded-xl bg-stone-50 border border-stone-100 focus:outline-none focus:border-emerald-500 focus:bg-white transition-all text-sm resize-none" placeholder="Your message..."></textarea>
+                <label className="block text-[11px] uppercase tracking-widest text-slate-400 mb-2 font-bold">Message</label>
+                <textarea rows={4} value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} required className="w-full px-5 py-4 rounded-xl bg-slate-900 border border-white/10 text-white focus:outline-none focus:border-indigo-500 hover:border-white/20 transition-all text-base resize-none placeholder:text-slate-600" placeholder="How can we help?"></textarea>
               </div>
-              <button type="submit" disabled={status === 'submitting'} className="w-full bg-emerald-600 text-white rounded-xl px-6 py-3.5 text-xs uppercase tracking-widest font-bold shadow-lg shadow-emerald-500/20 hover:bg-emerald-700 transition-all flex justify-center items-center gap-2">
-                {status === 'submitting' ? 'Sending...' : 'Send Message'}
+              <button type="submit" disabled={status === 'submitting'} className="w-full min-h-[44px] bg-indigo-500 text-slate-950 rounded-xl px-10 py-5 sm:py-6 text-sm uppercase tracking-widest font-bold shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 hover:-translate-y-0.5 active:translate-y-0 hover:bg-indigo-400 disabled:opacity-70 disabled:hover:translate-y-0 transition-all flex justify-center items-center gap-3 mt-4">
+                {status === 'submitting' ? 'Sending Message...' : 'Send Message'}
               </button>
-              {status === 'success' && <p className="text-emerald-600 text-[10px] font-bold mt-2 text-center uppercase tracking-widest">Sent Successfully!</p>}
+              {status === 'success' && <p className="text-indigo-400 text-xs font-bold mt-4 text-center uppercase tracking-widest animate-pulse">Message Sent Successfully!</p>}
             </form>
           </div>
         </div>
@@ -397,13 +346,13 @@ const Contact = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-stone-900 text-stone-300 py-6 border-t border-stone-800 shrink-0">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-stone-500 uppercase tracking-widest font-bold">
-          <p>© {new Date().getFullYear()} Senapati Connect.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-white transition-colors">Privacy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms</a>
+    <footer className="bg-black text-slate-400 py-10 border-t border-white/5 shrink-0">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-[11px] uppercase tracking-widest font-bold text-center">
+          <p>© {new Date().getFullYear()} Senapati Connect. All rights reserved.</p>
+          <div className="flex gap-8">
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>
@@ -414,23 +363,18 @@ const Footer = () => {
 
 const HomePage = () => {
   return (
-    <div className="snap-y snap-mandatory overflow-y-auto h-screen scroll-smooth">
-      <div id="home" className="snap-start shrink-0 h-screen">
+    <div className="overflow-x-hidden scroll-smooth bg-slate-900">
+      <div id="home">
         <Hero />
       </div>
-      <div id="directory" className="snap-start shrink-0 h-screen">
+      <div id="directory">
         <Directory />
       </div>
-      <div id="mission" className="snap-start shrink-0 h-screen">
+      <div id="mission">
         <Mission />
       </div>
-      <div id="launch" className="snap-start shrink-0 h-screen">
-        <LaunchInfo />
-      </div>
-      <div id="contact" className="snap-start shrink-0 h-screen flex flex-col">
-        <div className="flex-grow flex items-center">
-          <Contact />
-        </div>
+      <div id="contact" className="flex flex-col">
+        <Contact />
         <Footer />
       </div>
     </div>
@@ -438,22 +382,36 @@ const HomePage = () => {
 };
 
 function ScrollToAnchor() {
-  const { hash } = useLocation();
+  const { pathname, hash, key } = useLocation();
 
   useEffect(() => {
     if (hash) {
-      // Small delay to allow page rendering to finish before scrolling
-      setTimeout(() => {
-        const id = hash.replace('#', '');
+      const id = hash.replace('#', '');
+      let attempts = 0;
+      
+      const attemptScroll = () => {
         const element = document.getElementById(id);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return true;
+        }
+        return false;
+      };
+
+      setTimeout(() => {
+        if (!attemptScroll()) {
+          const interval = setInterval(() => {
+            if (attemptScroll() || attempts >= 20) {
+              clearInterval(interval);
+            }
+            attempts++;
+          }, 50);
         }
       }, 100);
     } else {
       window.scrollTo(0, 0);
     }
-  }, [hash]);
+  }, [pathname, hash, key]);
 
   return null;
 }
@@ -462,7 +420,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToAnchor />
-      <div className="min-h-screen font-sans antialiased text-stone-600 bg-stone-50 selection:bg-emerald-200 selection:text-stone-900 flex flex-col">
+      <div className="min-h-screen font-sans antialiased text-slate-300 bg-slate-900 selection:bg-indigo-500 selection:text-white flex flex-col overflow-x-hidden">
         <Navbar />
         <main className="flex-grow">
           <Routes>
