@@ -10,13 +10,13 @@ export const categoryData: Record<string, { title: string, theme: string, color:
     hoverBorder: "group-hover:border-blue-500/50",
     highlightBg: "bg-blue-500",
     listings: [
-      { name: "3D Hotel", location: "Main Road, Senapati", phone: ["+91"], image: "" },
-      { name: "Hotel Range Rover", location: "Senapati", phone: ["+91"], image: "" },
-      { name: "Crown Plaza Hotel", location: "Senapati", phone: ["+91"], image: "" },
-      { name: "Hotel Serena", location: "Senapati", phone: ["+91"], image: "" },
-      { name: "Eden Hotel", location: "Senapati", phone: ["+91"], image: "" },
-      { name: "Susan Recedencia Lodge", location: "Senapati", phone: ["+91"], image: "" },
-      { name: "Lodge Pinewood", location: "Senapati", phone: ["+91"], image: "" }
+      { name: "3D Hotel", location: "Main Road, Senapati HQ", phone: ["+91 98620 12345"], image: null },
+      { name: "Hotel Range Rover", location: "Bazar Area, Senapati", phone: ["+91 "], image: null },
+      { name: "Crown Plaza Hotel", location: "Near Traffic Point, Senapati", phone: ["+91 70855 59030"], image: null },
+      { name: "Hotel Serena", location: "NH-2, Senapati", phone: ["+91 "], image: null },
+      { name: "Eden Hotel", location: "Viewland Colony, Senapati", phone: ["+91 "], image: null },
+      { name: "Susan Recedencia Lodge", location: "Opposite DC Office Road", phone: ["+91 "], image: null },
+      { name: "Lodge Pinewood", location: "Karong, Senapati", phone: ["+91 "], image: null }
     ]
   },
   "school": {
@@ -28,16 +28,12 @@ export const categoryData: Record<string, { title: string, theme: string, color:
     hoverBorder: "group-hover:border-indigo-500/50",
     highlightBg: "bg-indigo-500",
     listings: [
-      { name: "Don Bosco Hr. Sec. School", location: "Senapati", phone: ["+91"], email: "", description: "Offers classes from Nursery to Higher Secondary with a focus on holistic development and academic excellence." },
-      { name: "Lungnila Elizabeth College", location: "Near District Hospital", phone: ["84862 92257", "89745 20384", "98630 98084"], email: "lungnilacollege@gmail.com", image: "/lungnila-elizabeth-college.webp", description: "Offers BA programs and diverse undergraduate courses." },
-      { name: "Mount Everest Hr. Sec. School", location: "Taphou, Senapati", phone: ["+91"], email: "", description: "Nursery to Class XII (Arts & Science). Provides quality education and well-equipped laboratory facilities." },
-      { name: "Bethany Hr. Sec. School", location: "Senapati", phone: ["+91"], email: "", description: "Comprehensive curriculum from foundational years to Higher Secondary." },
-      { name: "St. Anthony School", location: "Senapati", phone: ["+91"], email: "", description: "Dedicated to holistic education." },
-      { name: "Samaritan Public School", location: "Senapati", phone: ["+91"], email: "", description: "Providing quality education with modern facilities for student development." },
-      { name: "Little Angel School", location: "Senapati", phone: ["+91"], email: "", description: "Building a strong foundation for young learners." },
-      { name: "Brook Dale School", location: "Senapati", phone: ["+91"], email: "", description: "Focuses on academic excellence and extra-curricular activities." },
-      { name: "Lao Radiant Hr. Sec. School", location: "Vakho, Senapati", phone: ["+91"], email: "", description: "Nurturing students from foundational years to Higher Secondary." },
-      { name: "Hills Academy of Science", location: "Vakho, Senapati", phone: ["+91"], email: "", description: "Specialized in secondary and higher secondary education with a science-focused curriculum." }
+      { name: "Don Bosco Hr. Sec. School", location: "Senapati", phone: ["+91 "], email: null, description: null },
+      { name: "Lungnila Elizabeth College", location: "Near District Hospital", phone: ["+91 84862 92257", "89745 20384", "98630 98084"], email: "lungnilacollege@gmail.com", image: "/lungnila-elizabeth-college.webp", description: "Offer BA Sociology (Honours), Bachelor of Social Work, Master of Social Work" },
+      { name: "Mount Everest Hr. Sec. School", location: "Taphou, Senapati", phone: ["+91 "], email: null, description: null },
+      { name: "Bethany Hr. Sec. School", location: "Senapati", phone: ["+91 "], email: null, description: null },
+      { name: "St. Anthony School", location: "Senapati", phone: ["+91 "], email: null, description: null },
+      { name: "Samaritan Public School", location: "Senapati", phone: ["+91 "], email: null, description: null }
     ]
   },
   "hospital": {
@@ -49,7 +45,8 @@ export const categoryData: Record<string, { title: string, theme: string, color:
     hoverBorder: "group-hover:border-red-500/50",
     highlightBg: "bg-red-500",
     listings: [
-      { name: "District Hospital Senapati", location: "Above District Council", phone: ["+91"], image: " " }
+      { name: "District Hospital Senapati", location: "Above District Council", phone: ["+91 "], image: null },
+      
     ]
   },
   "others": {
@@ -61,9 +58,9 @@ export const categoryData: Record<string, { title: string, theme: string, color:
     hoverBorder: "group-hover:border-teal-500/50",
     highlightBg: "bg-teal-500",
     listings: [
-      { name: "Tea Hotel", location: "Bazar Road", phone: ["+91"], image: " " },
-      { name: "Car wash", location: "Bazar Road", phone: ["+91"], image: " " },
-      { name: "Car Reparing Shop", location: "Old Town", phone: ["+91"], image: " " }
+      { name: "Tea Hotel", location: "Bazar Road", phone: ["+91 "], image: null },
+      { name: "Car wash", location: "Bazar Road", phone: ["+91 "], image: null },
+      { name: "Car Repairing Shop", location: "Old Town", phone: ["+91 "], image: null }
     ]
   },
   "pharmacy": {
@@ -75,8 +72,9 @@ export const categoryData: Record<string, { title: string, theme: string, color:
     hoverBorder: "group-hover:border-emerald-500/50",
     highlightBg: "bg-emerald-500",
     listings: [
-      { name: " Medicos", location: "Bazar Road", phone: ["+91"], image: "" },
-      { name: " Pharmacy", location: "Senapati", phone: ["+91"], image: " " }
+      { name: "Joel Medicos", location: "Senapati", phone: ["+91 89741 44351"], image: null },
+      { name: "Kape Pharmacy", location: "Senapati", phone: ["+91 81199 58644"], image: null },
+      { name: "Apex Medicos", location: "Senapati", phone: ["+91 89716 61637"], image: null }
     ]
   },
   "wedding-planner": {
@@ -88,8 +86,8 @@ export const categoryData: Record<string, { title: string, theme: string, color:
     hoverBorder: "group-hover:border-pink-500/50",
     highlightBg: "bg-pink-500",
     listings: [
-      { name: "Elegance Weddings", location: "NH-2, Senapati", phone: ["+91"], image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=150&h=150"] },
-      { name: "Dream  Events", location: "Main Bazar", phone: ["+91"], image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&q=80&w=150&h=150"] }
+      { name: "Elegance Weddings", location: "NH-2, Senapati", phone: ["+91 "], image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=150&h=150"] },
+      { name: "Dream Events", location: "Main Bazar", phone: ["+91 "], image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&q=80&w=150&h=150"] }
     ]
   },
   "taxi-service": {
@@ -115,65 +113,25 @@ export const categoryData: Record<string, { title: string, theme: string, color:
     hoverBorder: "group-hover:border-emerald-500/50",
     highlightBg: "bg-emerald-500",
     listings: [
-      { name: "J & J Summit Agency", location: "Old Road, Senapati", items: "Stationery items, newspaper, school text books, office files and register, etc.", phone: ["+91 82580 73712"], image: "/jj-summit-agency.webp" },
-      { name: "Electrical & Hardware Centre", location: "NH-2, Senapati", items: "Electrical appliances, Construction materials, Paints, Nails, hings, etc.", phone: ["+91 82580 73712"], image: "/electrical-hardware-centre.webp" },
-      { name: "Holoholona Enterprises", location: "NH-2 Near Vishal Mega Mart, Senapati", items: "Poultry feeds, Pig feeds, Fish feeds, livestock medicine & instruments, etc.", phone: ["+91 88268 31479"], image: "/holoholona-enterprises.webp"},
-      { name: "Avavio Store", location: "Old Road, Senapati", items: "Glass, Plywoord, Furniture materials, etc.", phone: ["+91 96128 81322"], image: "/avavio-store.webp" },
-      { name: "V. M. Home Decor", location: "Old Tollgate, Senapati Bazar", items: "Dealer of Asian Paints products:- paints, primers, putty, waterproofing materials, and accessories.", phone: ["+91 72920 45490"], image: "/vm-home-decor.webp" },
-      { name: "Kamei Variety Store", location: "Maram Centre", items: "Deals in :- Apparel, dry goods, toys hardware and groceries items.", phone: ["+91 70857 35074"], image: ""  },
-      { name: "Dream Theatre", location: "Senapati Bazar", items: "AA sound n Light, Rent Advanced acoustic sound and light", phone: ["+91 70851 14964"], image: "" }
-    ]
-  },
-  "commercial-vehicle": {
-    title: "Commercial vehicle",
-    theme: "from-cyan-500/10",
-    color: "text-cyan-400",
-    bg: "bg-cyan-500/10",
-    border: "border-cyan-500/20",
-    hoverBorder: "group-hover:border-cyan-500/50",
-    highlightBg: "bg-cyan-500",
-    listings: [
-      { name: "LR Travels", location: "Senapati", phone: ["+91 90898 07284", "87308 75246"], image: "/lrtravel.webp", route: "Daily bus service: Senapati ↔ Imphal" },
-      { name: "Local Pickup Movers", location: "Senapati", phone: ["+91"], image: "https://images.unsplash.com/photo-1554559409-f83134eaec11?auto=format&fit=crop&q=80&w=400&h=300" }
-    ]
-  },
-  "photography": {
-    title: "Photography",
-    theme: "from-purple-500/10",
-    color: "text-purple-400",
-    bg: "bg-purple-500/10",
-    border: "border-purple-500/20",
-    hoverBorder: "group-hover:border-purple-500/50",
-    highlightBg: "bg-purple-500",
-    listings: [
-      { name: "Lens & Lights Studio", location: "Main Bazar", phone: ["+91"], image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&q=80&w=150&h=150"]},
-      { name: "Memories Captured", location: "Senapati", phone: ["+91"], image: "https://images.unsplash.com/photo-1554048665-6807897813a4?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=150&h=150"]}
-    ]
-  },
-  "event-rental": {
-    title: "Rentals",
-    theme: "from-violet-500/10",
-    color: "text-violet-400",
-    bg: "bg-violet-500/10",
-    border: "border-violet-500/20",
-    hoverBorder: "group-hover:border-violet-500/50",
-    highlightBg: "bg-violet-500",
-    listings: [
-      { name: "Pioneer Party Equipments", location: "Senapati Outskirts", phone: ["+91"], image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=150&h=150"]},
-      { name: "Classic Tents & Chairs", location: "Senapati Road", phone: ["+91"], image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1530103862676-de8892ebeea2?auto=format&fit=crop&q=80&w=150&h=150"]}
-    ]
-  },
-  "catering": {
-    title: "Catering",
-    theme: "from-fuchsia-500/10",
-    color: "text-fuchsia-400",
-    bg: "bg-fuchsia-500/10",
-    border: "border-fuchsia-500/20",
-    hoverBorder: "group-hover:border-fuchsia-500/50",
-    highlightBg: "bg-fuchsia-500",
-    listings: [
-      { name: "Spice & Smoke Catering", location: "Senapati Bazar", phone: ["+91 98765 10101"], image: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1547573854-74d2a71d0826?auto=format&fit=crop&q=80&w=150&h=150"] },
-      { name: "Traditional Feasts", location: "Senapati", phone: ["+91"], image: "https://images.unsplash.com/photo-1579584425514-6fa1031d2794?auto=format&fit=crop&q=80&w=400&h=300", products: ["https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&q=80&w=150&h=150"] }
+      { name: "J & J Summit Agency", location: "Old Road, Senapati", items: "Stationery items, newspaper, school text books.", phone: ["+91 82580 73712"], image: "/jj-summit-agency.webp" },
+      { name: "Electrical & Hardware Centre", location: "NH-2, Senapati", items: "Electrical appliances, Construction materials, Paints.", phone: ["+91 82580 73712"], image: "/electrical-hardware-centre.webp" },
+      { name: "Holoholona Enterprises", location: "NH-2 Near Vishal Mega Mart", items: "Poultry feeds, Pig feeds, Fish feeds.", phone: ["+91 88268 31479"], image: "/holoholona-enterprises.webp"},
+      { name: "Avavio Store", location: "Old Road, Senapati", items: "Glass, Plywood, Furniture materials.", phone: ["+91 96128 81322"], image: "/avavio-store.webp" },
+      { name: "V. M. Home Decor", location: "Old Tollgate, Senapati Bazar", items: "Dealer of Asian Paints products.", phone: ["+91 72920 45490"], image: "/vm-home-decor.webp" },
+      { name: "Kamei Variety Store", location: "Maram Centre", items: "Deals in Apparel, dry goods, hardware and groceries.", phone: ["+91 70857 35074"], image: null  },
+      { name: "Dream Theatre", location: "Senapati Bazar", items: "AA sound n Light renting services.", phone: ["+91 70851 14964"], image: "/dream-theatre.webp" },
+       { name: "Tumble Dry", location: "Senapati ", items: "Dry cleaner service", phone: ["+91 70058 27505"], image: null },
+       { name: "Santosh Rai Store", location: "Old Road, Senapati ", items: "Household goods", phone: ["+91 84138 29366"], image: null },
+         { name: "Ganesh Hardware", location: "Senapati ", items: "Hardware", phone: ["+91 94366 62234"], image: null },
+         { name: "Doumai Hardware", location: "Senapati ", items: "Hardware", phone: ["+91 81320 75999"], image: null },
+         { name: "Sumeet Hardware", location: "Senapati ", items: "Hardware", phone: ["+91 98620 03243"], image: null },
+            { name: "Gupta Stationery", location: "Senapati ", items: "Deal in stationery items.", phone: ["+91 76279 74210"], image: null },
+              { name: "Mohal JP Store", location: "Senapati ", items: "Deal in Grocery items.", phone: ["+91 96121 13648"], image: null },
+               { name: "DC Enterprise", location: "Senapati ", items: null, phone: ["+91 80140 37230"], image: null },
+               { name: "Blue Bell Corner", location: "Senapati ", items: null, phone: ["+91 91199 48382"], image: null },
+               { name: "Mini Store", location: "Senapati ", items: null, phone: ["+91 81310 89852"], image: null },
+               { name: "Loknak Store", location: "Senapati ", items: null, phone: ["+91 98673 8606"], image: null },
+               { name: "Atul Store", location: "Senapati ", items: null, phone: ["+91 76290 27635"], image: null }
     ]
   }
 };

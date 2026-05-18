@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import { ArrowLeft, Phone, MapPin, Mail, Navigation, Route } from 'lucide-react';
 import { categoryData } from '../data';
 
-const getDynamicImageUrl = (listing: any, categoryId: string | undefined): string => {
+const getDynamicImageUrl = (listing: any, categoryId: string | undefined): string | null => {
   const manualPath = listing.image?.trim() || '';
   
   if (manualPath && manualPath.length > 5) {
@@ -14,7 +14,7 @@ const getDynamicImageUrl = (listing: any, categoryId: string | undefined): strin
     return manualPath;
   }
 
-  return '';
+  return null;
 };
 
 export default function CategoryDetail() {
@@ -39,50 +39,49 @@ export default function CategoryDetail() {
   const { title, theme, color, bg, border, hoverBorder, highlightBg, listings } = category;
 
   return (
-    <div className="bg-[#0B132B] min-h-screen font-sans text-slate-300 pb-16 relative overflow-x-hidden selection:bg-indigo-500/30">
+    <div className="bg-[#0B132B] min-h-screen font-sans text-slate-300 pb-24 md:pb-8 relative overflow-x-hidden selection:bg-indigo-500/30">
       {/* Dynamic Background Glow */}
       <div className={`absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br ${theme} to-transparent rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3 z-0`}></div>
       <div className={`absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr ${theme} to-transparent rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/2 z-0`}></div>
 
-      {/* Header */}
-      <header className="sticky top-0 bg-[#0B132B]/80 backdrop-blur-xl border-b border-white/5 flex items-center px-4 md:px-6 h-16 w-full z-50 gap-3">
-        <div className="w-full max-w-7xl mx-auto flex items-center gap-3">
-          <Link to="/#directory" className="text-slate-400 hover:text-white transition-colors active:scale-95 duration-150 p-2 rounded-full cursor-pointer hover:bg-white/5">
-            <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-          </Link>
-          <div className="flex flex-col">
-            <h1 className="font-bold text-lg md:text-xl text-white truncate tracking-tight">
-              {title}
-            </h1>
-            <p className="text-slate-400 text-xs mt-0.5">
-              Showing {listings.length} results
-            </p>
-          </div>
-        </div>
-      </header>
+      {/* Header removed as it is now global */}
       
       <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-10 flex flex-col gap-6 relative z-10">
         
+        <div className="mb-2">
+            <h1 className="font-bold text-2xl md:text-3xl text-white truncate tracking-tight">
+              {title}
+            </h1>
+            <p className="text-slate-400 text-sm mt-1">
+              Showing {listings.length} results
+            </p>
+        </div>
+
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {listings.map((listing, idx) => {
-            const hasImage = getDynamicImageUrl(listing, categoryId) !== '';
+            const imageUrl = getDynamicImageUrl(listing, categoryId);
+            const hasImage = imageUrl !== null;
             return (
             <motion.div 
               key={idx} 
               initial={{ opacity: 0, y: 15 }} 
               animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: idx * 0.05, duration: 0.3 }}
+              transition={{ delay: Math.min(idx * 0.03, 0.3), duration: 0.2 }}
               className={`bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col hover:bg-white/10 hover:border-white/20 backdrop-blur-md transition-all group overflow-hidden relative cursor-pointer`}
             >
               <div className="flex items-start gap-4 mb-4">
                 {hasImage ? (
                   <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-800 border border-white/5 overflow-hidden shrink-0">
                     <img 
-                      src={getDynamicImageUrl(listing, categoryId)} 
+                      src={imageUrl} 
                       alt={listing.name} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
-                      {...(getDynamicImageUrl(listing, categoryId).startsWith('http') ? { referrerPolicy: "no-referrer" } : {})}
-                      onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.parentElement!.classList.add(bg, border, 'flex', 'items-center', 'justify-center'); e.currentTarget.parentElement!.innerHTML = `<span class="text-xl font-bold ${color}">${listing.name.charAt(0)}</span>`; }}
+                      {...(imageUrl?.startsWith('http') ? { referrerPolicy: "no-referrer" } : {})}
+                      onError={(e) => { 
+                        e.currentTarget.style.display = 'none'; 
+                        e.currentTarget.parentElement!.classList.add(bg, border, 'flex', 'items-center', 'justify-center'); 
+                        e.currentTarget.parentElement!.innerHTML = `<span class="text-xl font-bold ${color}">${listing.name.charAt(0)}</span>`; 
+                      }}
                     />
                   </div>
                 ) : (

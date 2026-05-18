@@ -1,6 +1,8 @@
 {
   "name": "Senapati Connect",
-  "description": "A professional landing page and community service directory for connecting local entrepreneurs with the people.",
+  "description": "A high-performance community service directory for Senapati, helping residents find local businesses, schools, hospitals, and transport services.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

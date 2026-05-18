@@ -4,21 +4,11 @@ import { ArrowLeft } from 'lucide-react';
 
 export default function Terms() {
   return (
-    <div className="bg-[#0B132B] min-h-screen font-sans text-slate-300 pb-16 relative overflow-x-hidden selection:bg-indigo-500/30">
+    <div className="bg-[#0B132B] min-h-screen font-sans text-slate-300 pb-24 md:pb-8 relative overflow-x-hidden selection:bg-indigo-500/30">
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-indigo-500/10 to-transparent rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3 z-0"></div>
       
-      {/* Header */}
-      <header className="sticky top-0 bg-[#0B132B]/80 backdrop-blur-xl border-b border-white/5 flex items-center px-4 md:px-6 h-16 w-full z-50 gap-3">
-        <div className="w-full max-w-7xl mx-auto flex items-center gap-3">
-          <Link to="/" className="text-slate-400 hover:text-white transition-colors active:scale-95 duration-150 p-2 rounded-full cursor-pointer hover:bg-white/5">
-            <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-          </Link>
-          <div className="flex flex-col">
-            <h1 className="text-white font-bold text-lg sm:text-xl leading-tight">Terms & Conditions</h1>
-          </div>
-        </div>
-      </header>
-
+      {/* Header removed as it is now global */}
+      
       {/* Content */}
       <main className="w-full max-w-3xl mx-auto px-6 py-12 relative z-10 text-slate-300 leading-relaxed text-base sm:text-lg">
         <p className="text-slate-400 text-sm font-bold uppercase tracking-widest mb-10">Last Updated: May 2026</p>

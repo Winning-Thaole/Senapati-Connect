@@ -27,6 +27,7 @@ import {
   Mail,
   CheckCircle2,
   Navigation,
+  MessageCircle,
   Target,
   BookOpen,
   ArrowUp,
@@ -61,12 +62,12 @@ const Header = () => {
   return (
     <>
       <header className="relative z-50 px-6 lg:px-12 py-4 flex justify-between items-center w-full">
-        <div className="flex items-center z-50">
-          <img src="/logo.webp" alt="Senapati Connect Logo" className="h-10 md:h-12 w-auto object-contain cursor-pointer relative z-50" onError={(e) => { 
+        <Link to="/" className="flex items-center z-50 cursor-pointer">
+          <img src="/logo.webp" alt="Senapati Connect Logo" className="h-10 md:h-12 w-auto object-contain relative z-50" onError={(e) => { 
             e.currentTarget.style.display='none'; 
             e.currentTarget.parentElement!.innerHTML = '<span class="text-white font-bold text-xl tracking-tight relative z-50">Senapati Connect</span>'; 
           }} />
-        </div>
+        </Link>
         
         <nav className="hidden md:flex items-center gap-10">
           <a href="/#home" className="text-white text-xs font-bold tracking-widest uppercase hover:text-indigo-400 transition-colors">Home</a>
@@ -76,9 +77,7 @@ const Header = () => {
         </nav>
 
         <div className="hidden md:block">
-          <a href="/#contact" className="bg-[#6366f1] hover:bg-indigo-600 text-white text-xs font-bold tracking-widest uppercase px-8 py-3.5 rounded-full transition-all shadow-[0_0_15px_rgba(99,102,241,0.3)] hover:shadow-[0_0_25px_rgba(99,102,241,0.5)] active:scale-95 inline-block">
-            Get in Touch
-          </a>
+          {/* WhatsApp button removed as requested */}
         </div>
         
         <button 
@@ -105,16 +104,10 @@ const Header = () => {
               <Target className="w-6 h-6 text-slate-400 group-hover:text-white transition-colors" />
               <span className="text-xl font-bold tracking-wider">Mission</span>
             </a>
-            <a href="/#contact" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 py-6 border-b border-white/10 text-slate-400 hover:text-white transition-colors group">
-              <Phone className="w-6 h-6 text-slate-400 group-hover:text-white transition-colors" />
+            <a href="/#contact" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-4 py-6 text-slate-400 hover:text-white transition-colors group">
+              <MessageCircle className="w-6 h-6 text-slate-400 group-hover:text-white transition-colors" />
               <span className="text-xl font-bold tracking-wider">Contact</span>
             </a>
-            
-            <div className="mt-10 flex justify-center">
-              <a href="/#contact" onClick={() => setIsMobileMenuOpen(false)} className="bg-[#6366f1] hover:bg-indigo-600 text-white text-sm font-bold tracking-widest uppercase px-12 py-4 rounded-full transition-all shadow-[0_0_15px_rgba(99,102,241,0.3)]">
-                Get in Touch
-              </a>
-            </div>
           </nav>
         </div>
       )}
@@ -122,26 +115,175 @@ const Header = () => {
   );
 };
 
-const BottomNav = () => (
-  <nav className="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-16 bg-[#0B132B]/90 backdrop-blur-xl border-t border-white/5 z-50 pb-safe">
-    <button className="flex flex-col items-center justify-center text-indigo-400 w-full h-full cursor-pointer transition-colors pt-1">
-      <Home className="w-5 h-5 fill-current" />
-      <span className="font-sans text-[10px] font-medium mt-1">Home</span>
-    </button>
-    <button onClick={() => { document.getElementById('directory')?.scrollIntoView({behavior:'smooth'}) }} className="flex flex-col items-center justify-center text-slate-400 hover:text-indigo-400 w-full h-full cursor-pointer transition-colors pt-1">
-      <LayoutGrid className="w-5 h-5" />
-      <span className="font-sans text-[10px] font-medium mt-1">Directory</span>
-    </button>
-    <button className="flex flex-col items-center justify-center text-slate-400 hover:text-indigo-400 w-full h-full cursor-pointer transition-colors pt-1">
-      <Bookmark className="w-5 h-5" />
-      <span className="font-sans text-[10px] font-medium mt-1">Saved</span>
-    </button>
-    <button className="flex flex-col items-center justify-center text-slate-400 hover:text-indigo-400 w-full h-full cursor-pointer transition-colors pt-1">
-      <User className="w-5 h-5" />
-      <span className="font-sans text-[10px] font-medium mt-1">Profile</span>
-    </button>
-  </nav>
-);
+const BottomNav = () => {
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
+
+  const handleDirectoryClick = (e: React.MouseEvent) => {
+    if (isHome) {
+      e.preventDefault();
+      document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <nav className="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-16 bg-[#0B132B]/90 backdrop-blur-xl border-t border-white/5 z-50 pb-safe">
+      <Link to="/" className={`flex flex-col items-center justify-center w-full h-full cursor-pointer transition-colors pt-1 ${isHome ? 'text-indigo-400' : 'text-slate-400 hover:text-indigo-400'}`}>
+        <Home className={`w-5 h-5 ${isHome ? 'fill-current' : ''}`} />
+        <span className="font-sans text-[10px] font-medium mt-1">Home</span>
+      </Link>
+      <Link 
+        to="/#directory" 
+        onClick={handleDirectoryClick}
+        className="flex flex-col items-center justify-center text-slate-400 hover:text-indigo-400 w-full h-full cursor-pointer transition-colors pt-1"
+      >
+        <LayoutGrid className="w-5 h-5" />
+        <span className="font-sans text-[10px] font-medium mt-1">Directory</span>
+      </Link>
+      <Link to="/saved" className="flex flex-col items-center justify-center text-slate-400 hover:text-indigo-400 w-full h-full cursor-pointer transition-colors pt-1">
+        <Bookmark className="w-5 h-5" />
+        <span className="font-sans text-[10px] font-medium mt-1">Saved</span>
+      </Link>
+      <a href="https://wa.me/918414832877" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center text-slate-400 hover:text-indigo-400 w-full h-full cursor-pointer transition-colors pt-1">
+        <MessageCircle className="w-5 h-5" />
+        <span className="font-sans text-[10px] font-medium mt-1">Chat</span>
+      </a>
+    </nav>
+  );
+};
+
+const ContactForm = () => {
+  const [submitted, setSubmitted] = useState(false);
+  const [isPending, setIsPending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsPending(true);
+    
+    const formData = new FormData(e.currentTarget);
+    
+    // Honeypot check
+    if (formData.get('bot-field')) {
+      console.warn("Bot detected via honeypot");
+      setIsPending(false);
+      return;
+    }
+
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setTimeout(() => setSubmitted(false), 8000);
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || "Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("An error occurred. Please check your connection and try again.");
+    } finally {
+      setIsPending(false);
+    }
+  };
+
+  if (submitted) {
+    return (
+      <div className="flex flex-col items-center justify-center py-16 text-center animate-in fade-in zoom-in duration-700">
+        <div className="relative">
+          <div className="absolute inset-0 bg-emerald-500/20 blur-3xl rounded-full animate-pulse" />
+          <div className="w-28 h-28 bg-emerald-500 text-white rounded-full flex items-center justify-center relative z-10 shadow-[0_0_50px_rgba(16,185,129,0.3)]">
+            <CheckCircle2 className="w-14 h-14" />
+          </div>
+        </div>
+        <h4 className="text-3xl font-bold text-white mt-10 mb-4 tracking-tight">Message Received</h4>
+        <p className="text-slate-400 text-lg max-w-sm mx-auto">
+          Thank you for reaching out. We've received your submission and will get back to you shortly.
+        </p>
+        <button 
+          onClick={() => setSubmitted(false)}
+          className="mt-10 px-10 py-3 rounded-full border border-white/10 text-white/60 hover:text-white hover:border-white/20 transition-all text-xs font-bold uppercase tracking-[0.2em]"
+        >
+          Send another
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form 
+      className="space-y-8" 
+      onSubmit={handleSubmit}
+      data-netlify="true"
+      name="contact"
+    >
+      {/* Honeypot & Netlify hidden inputs */}
+      <input type="hidden" name="form-name" value="contact" />
+      <div className="hidden">
+        <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="space-y-3">
+          <label className="text-[10px] uppercase tracking-[0.25em] text-slate-500 font-bold ml-1">Full Name</label>
+          <input 
+            type="text" 
+            name="name" 
+            required 
+            className="w-full px-6 py-4 rounded-2xl bg-[#020617] border border-white/5 text-white focus:outline-none focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/5 transition-all duration-300 placeholder-slate-800" 
+            placeholder="Your full name" 
+          />
+        </div>
+        <div className="space-y-3">
+          <label className="text-[10px] uppercase tracking-[0.25em] text-slate-500 font-bold ml-1">Your Email</label>
+          <input 
+            type="email" 
+            name="email" 
+            required 
+            className="w-full px-6 py-4 rounded-2xl bg-[#020617] border border-white/5 text-white focus:outline-none focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/5 transition-all duration-300 placeholder-slate-800" 
+            placeholder="email@example.com" 
+          />
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        <label className="text-[10px] uppercase tracking-[0.25em] text-slate-500 font-bold ml-1">How can we help?</label>
+        <textarea 
+          rows={5} 
+          name="message" 
+          required 
+          className="w-full px-6 py-4 rounded-2xl bg-[#020617] border border-white/5 text-white focus:outline-none focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/5 transition-all duration-300 placeholder-slate-800 resize-none" 
+          placeholder="Tell us what's on your mind..."
+        ></textarea>
+      </div>
+
+      <div className="flex flex-col sm:flex-row items-center gap-8 pt-4">
+        <button 
+          type="submit" 
+          disabled={isPending}
+          className="w-full sm:w-auto min-w-[260px] bg-indigo-500 hover:bg-indigo-400 disabled:bg-slate-800 disabled:text-slate-600 disabled:cursor-not-allowed text-white rounded-2xl px-12 py-5 text-xs uppercase tracking-[0.3em] font-bold shadow-[0_20px_40px_-15px_rgba(99,102,241,0.3)] transition-all active:scale-[0.98] group relative overflow-hidden"
+        >
+          <span className="relative z-10 flex items-center justify-center gap-3">
+            {isPending ? "Sending..." : "Send Message"}
+            {!isPending && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
+          </span>
+        </button>
+      </div>
+    </form>
+  );
+};
 
 const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -174,7 +316,6 @@ const HomePage = () => {
 
   return (
     <div className="bg-[#0B132B] min-h-screen font-sans text-white flex flex-col pb-16 md:pb-0 overflow-x-hidden relative selection:bg-indigo-500/30">
-      <Header />
       
       {/* Background glow effects */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none -translate-y-1/3 translate-x-1/3 z-0"></div>
@@ -205,23 +346,37 @@ const HomePage = () => {
             
             <div className="w-full h-[400px] sm:h-[500px] flex flex-col rounded-2xl border border-cyan-400/40 bg-[#050b18] backdrop-blur-sm overflow-hidden relative shadow-[0_0_20px_rgba(34,211,238,0.15)]">
               
-              {/* Top Box: YouTube Link with Thumbnail */}
-              <a 
-                href={`https://www.youtube.com/watch?v=${youtubeId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative h-1/2 w-full border-b border-cyan-400/20 group flex items-center justify-center overflow-hidden transition-all"
-              >
-                <img 
-                  src={`https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`} 
-                  alt="Video thumbnail" 
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-300"></div>
-                <div className="relative z-10 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-cyan-500/80 backdrop-blur-sm flex items-center justify-center text-white shadow-[0_0_20px_rgba(34,211,238,0.6)] group-hover:scale-110 group-hover:bg-cyan-400 transition-all duration-300">
-                  <Play className="w-8 h-8 sm:w-10 sm:h-10 ml-2" fill="currentColor" />
-                </div>
-              </a>
+             {/* Top Box: Scholarship Notice */}
+<a
+  href="https://dtahills.mn.gov.in/notification-for-eligible-students-under-pre-matric-and-post-matric-scholarship-schemes-for-the-year-2023-24-and-2024-25/"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="relative h-1/2 w-full border-b border-cyan-400/20 overflow-hidden group bg-slate-900"
+>
+  {/* Content */}
+  <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-8 text-white">
+
+    <div className="inline-block mb-3">
+      <span className="bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">
+        Official Notice
+      </span>
+    </div>
+
+    <h3 className="text-sm sm:text-lg font-bold leading-relaxed">
+      Pre-Matric & Post-Matric Scholarship Notification 2023–24 & 2024–25
+    </h3>
+
+    <p className="text-xs sm:text-sm text-slate-300 mt-3 leading-relaxed line-clamp-3">
+      Eligible Scheduled Tribe (ST) students who have not received scholarship benefits due to Aadhaar non-linking with bank accounts are advised to complete Aadhaar seeding immediately.
+    </p>
+
+    <div className="mt-4 flex items-center gap-2 text-cyan-300 font-semibold text-sm">
+      <span>Read Full Notification</span>
+      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+    </div>
+
+  </div>
+</a>
 
               {/* Bottom Box: Large Wide Button */}
               <button 
@@ -405,50 +560,59 @@ const HomePage = () => {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="w-full max-w-7xl mx-auto px-6 lg:px-12 pt-8 lg:pt-10 pb-4 lg:pb-6 flex flex-col">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 mb-6">
-            <div className="flex flex-col gap-8">
-              <div>
-                <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-white mb-6">Let's build<br /><span className="text-indigo-400">together.</span></h2>
-                <p className="text-slate-400 text-lg sm:text-xl font-medium max-w-md">Whether you are looking to list your service or have a question, we are here to help.</p>
-              </div>
-              <div className="space-y-8 mt-4">
-                <div className="flex items-center gap-5 text-slate-300 group">
-                  <div className="w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center text-indigo-400">
-                    <Phone className="w-6 h-6" />
-                  </div>
-                  <span className="font-medium text-base sm:text-lg group-hover:text-white transition-colors">+91 84148 32877</span>
-                </div>
-                <div className="flex items-center gap-5 text-slate-300 group">
-                  <div className="w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center text-indigo-400">
-                    <Mail className="w-6 h-6" />
-                  </div>
-                  <span className="font-medium text-base sm:text-lg group-hover:text-white transition-colors">senapaticonnect@gmail.com</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-[#131B36] border border-white/5 rounded-[32px] p-10 sm:p-14 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-indigo-500 to-blue-400" />
-              <h3 className="text-2xl font-bold text-white mb-8 lg:hidden">Get in Touch</h3>
-              <form className="space-y-6" name="contact" method="POST" data-netlify="true">
-                <input type="hidden" name="form-name" value="contact" />
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <section id="contact" className="py-24 px-6 lg:px-12 bg-[#020617] border-t border-white/5 relative overflow-hidden">
+          {/* Decorative Background Elements */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/3" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/3" />
+
+          <div className="max-w-7xl mx-auto relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              
+              {/* Left Column: Info & Context (Bento Part 1) */}
+              <div className="lg:col-span-4 space-y-8">
+                <div className="bg-[#0B0F1A] border border-white/5 rounded-[32px] p-8 h-full flex flex-col justify-between group hover:border-white/10 transition-all duration-500">
                   <div>
-                    <label className="block text-[11px] uppercase tracking-widest text-slate-400 mb-2 font-bold">Name</label>
-                    <input type="text" name="name" required className="w-full px-5 py-4 rounded-xl bg-slate-900 border border-white/10 text-white focus:outline-none focus:border-indigo-500 text-base placeholder-slate-600" placeholder="Your name" />
+                    <div className="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6 text-indigo-400 group-hover:scale-110 transition-transform duration-500">
+                      <Target className="w-6 h-6" />
+                    </div>
+                    <h2 className="text-4xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
+                      Let's build<br /><span className="text-indigo-400 text-3xl sm:text-5xl">together.</span>
+                    </h2>
+                    <p className="text-slate-400 text-lg leading-relaxed">
+                      Submit your local business details or reaching out for partnerships. We're here to help the community connect.
+                    </p>
                   </div>
-                  <div>
-                    <label className="block text-[11px] uppercase tracking-widest text-slate-400 mb-2 font-bold">Email</label>
-                    <input type="email" name="email" required className="w-full px-5 py-4 rounded-xl bg-slate-900 border border-white/10 text-white focus:outline-none focus:border-indigo-500 text-base placeholder-slate-600" placeholder="your@email.com" />
+                  
+                  <div className="mt-12 space-y-6">
+                    <a 
+                      href="https://wa.me/918414832877" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-5 text-slate-300 group/item hover:text-green-400 transition-colors"
+                    >
+                      <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-indigo-400 group-hover/item:bg-green-500 group-hover/item:text-white transition-all">
+                        <MessageCircle className="w-5 h-5" />
+                      </div>
+                      <span className="font-medium">WhatsApp Us</span>
+                    </a>
+                    <div className="flex items-center gap-5 text-slate-300 group/item">
+                      <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-indigo-400 group-hover/item:bg-indigo-500 group-hover/item:text-white transition-all">
+                        <Mail className="w-5 h-5" />
+                      </div>
+                      <span className="font-medium">senapaticonnect@gmail.com</span>
+                    </div>
                   </div>
                 </div>
-                <div>
-                    <label className="block text-[11px] uppercase tracking-widest text-slate-400 mb-2 font-bold">Message</label>
-                    <textarea rows={4} name="message" required className="w-full px-5 py-4 rounded-xl bg-slate-900 border border-white/10 text-white focus:outline-none focus:border-indigo-500 text-base placeholder-slate-600 resize-none" placeholder="How can we help?"></textarea>
+              </div>
+
+              {/* Right Column: The Form (Bento Part 2) */}
+              <div className="lg:col-span-8">
+                <div className="bg-[#0B0F1A] border border-white/5 rounded-[32px] p-8 sm:p-12 relative overflow-hidden h-full shadow-2xl">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-blue-500 to-indigo-500" />
+                  
+                  <ContactForm />
                 </div>
-                <button type="submit" className="w-full bg-indigo-500 text-white rounded-xl px-10 py-5 text-sm uppercase tracking-widest font-bold shadow-lg hover:bg-indigo-400 transition-all">Submit Message</button>
-              </form>
+              </div>
             </div>
           </div>
         </section>
@@ -531,12 +695,14 @@ export default function App() {
     <BrowserRouter>
       <ScrollToAnchor />
       <ScrollToTopButton />
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/category/:categoryId" element={<CategoryDetail />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
       </Routes>
+      <BottomNav />
     </BrowserRouter>
   );
 }
