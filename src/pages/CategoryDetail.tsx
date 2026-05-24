@@ -32,7 +32,7 @@ export default function CategoryDetail() {
         hoverBorder: "group-hover:border-rose-500/50",
         highlightBg: "bg-rose-500",
         listings: [
-          { name: "John's Service", location: "Main Bazar, Senapati", phone: "+91 98765 43210", image: "https://images.unsplash.com/photo-1553531384-cc64ac80f931?auto=format&fit=crop&q=80&w=400&h=300" }
+          { name: "John's Service", location: "Main Bazar, Senapati", phone: ["+91 98765 43210"], image: "https://images.unsplash.com/photo-1553531384-cc64ac80f931?auto=format&fit=crop&q=80&w=400&h=300" }
         ]
       };
 
@@ -44,8 +44,6 @@ export default function CategoryDetail() {
       <div className={`absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br ${theme} to-transparent rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3 z-0`}></div>
       <div className={`absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr ${theme} to-transparent rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/2 z-0`}></div>
 
-      {/* Header removed as it is now global */}
-      
       <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-10 flex flex-col gap-6 relative z-10">
         
         <div className="mb-2">
@@ -67,7 +65,7 @@ export default function CategoryDetail() {
               initial={{ opacity: 0, y: 15 }} 
               animate={{ opacity: 1, y: 0 }} 
               transition={{ delay: Math.min(idx * 0.03, 0.3), duration: 0.2 }}
-              className={`bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col hover:bg-white/10 hover:border-white/20 backdrop-blur-md transition-all group overflow-hidden relative cursor-pointer`}
+              className={`bg-white/5 border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col hover:bg-white/10 hover:border-white/20 backdrop-blur-md transition-all group overflow-hidden relative cursor-default`}
             >
               <div className="flex items-start gap-4 mb-4">
                 {hasImage ? (
@@ -126,17 +124,76 @@ export default function CategoryDetail() {
 
               {/* Actions Footer */}
               <div className="mt-auto pt-4 border-t border-white/10 flex flex-col gap-2.5">
-                {listing.phone && Array.isArray(listing.phone) && listing.phone.length > 0 && (
-                  <div className="flex flex-col gap-2.5">
-                    {listing.phone.map((num, i) => (
-                      <a key={i} href={`tel:${num.replace(/[^0-9+]/g, '')}`} onClick={(e) => e.stopPropagation()} className={`w-full ${category.highlightBg || 'bg-sky-500'} hover:opacity-90 text-white min-h-[44px] py-1 px-3 rounded-xl text-[14px] font-bold flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95`}>
-                        <Phone className="w-4 h-4 shrink-0" /> 
-                        <span className="leading-tight shrink-0 md:hidden">Call</span>
-                        <span className="leading-tight shrink-0 hidden md:block">{num.trim()}</span>
-                      </a>
-                    ))}
+                
+                {/* Responsive Phone Block: Filters out empty inputs */}
+                {listing.phone && Array.isArray(listing.phone) && listing.phone.some(num => num && num.trim() !== "+91") && (
+                  <div className="w-full">
+                    {/* 1. DESKTOP VIEW: Clean text labels. Invisible on mobile, visible on desktop browser */}
+                    <div className="hidden md:block mb-3 bg-white/5 p-2.5 rounded-xl border border-white/5" onClick={(e) => e.stopPropagation()}>
+                      
+                      {/* One universal, clean header for all directories */}
+                      <p className="text-[11px] text-slate-400 font-bold tracking-widest uppercase mb-1">
+                        Booking & Contact
+                      </p>
+                      
+                      {/* Renders numbers horizontally on a single line separated by a comma */}
+                      <div className="flex flex-wrap gap-x-1.5 text-slate-200 text-[13px] font-medium tracking-wide">
+                        {listing.phone
+                          .filter(num => num && num.trim() !== "+91")
+                          .map((phoneNum, idx, filteredArray) => (
+                            <span key={idx}>
+                              {phoneNum.trim()}{idx < filteredArray.length - 1 ? "," : ""}
+                            </span>
+                          ))}
+                      </div>
+                    </div>
+                    {/* 2. MOBILE VIEW: Space-saving interactive call elements */}
+                    <div className="block md:hidden mb-1">
+                      {listing.phone.filter(num => num && num.trim() !== "+91").length === 1 ? (
+                        /* Direct trigger dial for single phone record items */
+                        <a
+                          href={`tel:${listing.phone.filter(num => num && num.trim() !== "+91")[0].replace(/[^0-9+]/g, '')}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className={`w-full ${category.highlightBg || 'bg-sky-500'} hover:opacity-90 text-white min-h-[44px] py-2 px-4 rounded-xl text-[14px] font-bold flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95`}
+                        >
+                          <Phone className="w-4 h-4 shrink-0" />
+                          <span className="leading-tight">Call Business</span>
+                        </a>
+                      ) : (
+                        /* Standard context drop-down for multi-line listings */
+                        <div className="relative w-full" onClick={(e) => e.stopPropagation()}>
+                          <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-white z-10">
+                            <Phone className="w-4 h-4 shrink-0" />
+                          </div>
+                          <select
+                            onChange={(e) => {
+                              if (e.target.value) {
+                                window.location.href = `tel:${e.target.value}`;
+                                e.target.value = ""; 
+                              }
+                            }}
+                            className={`w-full ${category.highlightBg || 'bg-sky-500'} hover:opacity-90 text-white min-h-[44px] py-2 pl-11 pr-10 rounded-xl text-[14px] font-bold appearance-none transition-all shadow-lg text-left active:scale-95`}
+                            defaultValue=""
+                          >
+                            <option value="" disabled hidden>Choose Number to Call</option>
+                            {listing.phone
+                              .filter(num => num && num.trim() !== "+91")
+                              .map((phoneNum, idx) => (
+                                <option key={idx} value={phoneNum.replace(/[^0-9+]/g, '')} className="text-black bg-white font-medium">
+                                  Line {idx + 1}: {phoneNum.trim()}
+                                </option>
+                              ))}
+                          </select>
+                          <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-white/80">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
                   </div>
                 )}
+
                 {listing.email && (
                   <a href={`mailto:${listing.email}`} onClick={(e) => e.stopPropagation()} className="w-full bg-white/10 border border-white/10 hover:bg-white/20 text-white min-h-[44px] py-1 px-3 rounded-xl text-[14px] font-bold flex items-center justify-center gap-2 transition-all active:scale-95">
                     <Mail className="w-4 h-4 text-indigo-200 shrink-0" /> 

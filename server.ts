@@ -14,16 +14,24 @@ async function startServer() {
 
   // API Route for Contact Form
   app.post("/api/contact", async (req, res) => {
+    console.log("POST /api/contact endpoint hit. Body:", req.body);
     const { name, email, message } = req.body;
 
     if (!name || !email || !message) {
-      return res.status(400).json({ error: "Missing required fields" });
+      console.warn("Bad Request: Missing fields in body:", { name, email, message });
+      return res.status(400).json({ error: "Missing required fields: name, email, and message are all required." });
     }
 
     // Check if email configuration exists
     const user = process.env.EMAIL_USER;
     const pass = process.env.EMAIL_PASS;
     const receiver = process.env.EMAIL_RECEIVER || user;
+
+    console.log("Detected environment credentials:", {
+      userConfigured: !!user,
+      passConfigured: !!pass,
+      receiverAddress: receiver || "not set"
+    });
 
     if (!user || !pass) {
       const logMsg = "Email submission received but credentials (EMAIL_USER/EMAIL_PASS) are not configured in Settings.";
@@ -36,6 +44,7 @@ async function startServer() {
     }
 
     try {
+      console.log("Creating nodemailer transport and verifying configuration...");
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -47,14 +56,18 @@ async function startServer() {
       // Verify connection configuration
       try {
         await transporter.verify();
+        console.log("Nodemailer transporter verification succeeded.");
       } catch (verifyError: any) {
-        if (verifyError.message.includes('535-5.7.8')) {
+        console.error("Transporter verification failed:", verifyError);
+        if (verifyError.message && verifyError.message.includes('535-5.7.8')) {
           console.error("CRITICAL: Gmail Authentication Failed. You must use an APP PASSWORD, not your main password.");
           return res.status(500).json({ 
-            error: "Email authentication failed. Please ensure you are using a Google App Password in the Settings menu." 
+            error: "Email authentication failed (535-5.7.8). Please ensure you are using a Google App Password in the Settings menu (not your normal password)." 
           });
         }
-        throw verifyError;
+        return res.status(500).json({ 
+          error: `Transporter validation failed: ${verifyError.message || verifyError}` 
+        });
       }
 
       const mailOptions = {
@@ -72,11 +85,13 @@ async function startServer() {
         `
       };
 
-      await transporter.sendMail(mailOptions);
+      console.log("Sending mail to:", receiver);
+      const info = await transporter.sendMail(mailOptions);
+      console.log("Email sent successfully. Message ID:", info.messageId);
       res.json({ success: true });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error sending email:", error);
-      res.status(500).json({ error: "Failed to send email" });
+      res.status(500).json({ error: `Failed to send email: ${error.message || error}` });
     }
   });
 

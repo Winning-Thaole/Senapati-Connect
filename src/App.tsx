@@ -33,6 +33,7 @@ import {
   ArrowUp,
   ArrowRight,
   Play,
+  ExternalLink,
   Route as RouteIcon
 } from "lucide-react";
 import CategoryDetail from "./pages/CategoryDetail";
@@ -55,6 +56,34 @@ const categoryIcons: Record<string, React.ElementType> = {
   "others": MoreHorizontal
 };
 
+const Logo = () => {
+  const [logoFailed, setLogoFailed] = useState(false);
+
+  if (logoFailed) {
+    return (
+      <div className="flex items-center gap-2 relative z-50 select-none">
+        <div className="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center shadow-inner">
+          <span className="text-indigo-400 font-extrabold text-base tracking-tight leading-none pt-0.5">S</span>
+        </div>
+        <span className="text-white font-extrabold text-lg sm:text-xl tracking-tight leading-none">
+          Senapati <span className="text-indigo-400">Connect</span>
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <img 
+      src="/logo.webp" 
+      alt="Senapati Connect Logo" 
+      className="h-10 md:h-12 w-auto object-contain relative z-50" 
+      onError={() => {
+        console.warn("logo.webp failed to load. Falling back to typographic logo.");
+        setLogoFailed(true);
+      }} 
+    />
+  );
+};
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -63,10 +92,7 @@ const Header = () => {
     <>
       <header className="relative z-50 px-6 lg:px-12 py-4 flex justify-between items-center w-full">
         <Link to="/" className="flex items-center z-50 cursor-pointer">
-          <img src="/logo.webp" alt="Senapati Connect Logo" className="h-10 md:h-12 w-auto object-contain relative z-50" onError={(e) => { 
-            e.currentTarget.style.display='none'; 
-            e.currentTarget.parentElement!.innerHTML = '<span class="text-white font-bold text-xl tracking-tight relative z-50">Senapati Connect</span>'; 
-          }} />
+          <Logo />
         </Link>
         
         <nav className="hidden md:flex items-center gap-10">
@@ -155,10 +181,18 @@ const BottomNav = () => {
 const ContactForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [isPending, setIsPending] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const encode = (data: Record<string, string>) => {
+    return Object.keys(data)
+      .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+      .join("&");
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsPending(true);
+    setErrorMsg(null);
     
     const formData = new FormData(e.currentTarget);
     
@@ -169,31 +203,26 @@ const ContactForm = () => {
       return;
     }
 
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      message: formData.get('message'),
-    };
-
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({
+          "form-name": "contact",
+          name: formData.get("name") as string,
+          email: formData.get("email") as string,
+          message: formData.get("message") as string,
+        }),
       });
 
       if (response.ok) {
         setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 8000);
       } else {
-        const errorData = await response.json();
-        alert(errorData.error || "Failed to send message. Please try again.");
+        setErrorMsg("Failed to send message to Netlify. Please try again.");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Submission error:", error);
-      alert("An error occurred. Please check your connection and try again.");
+      setErrorMsg("Failed to connect to the server. Please check your network and try again.");
     } finally {
       setIsPending(false);
     }
@@ -210,10 +239,14 @@ const ContactForm = () => {
         </div>
         <h4 className="text-3xl font-bold text-white mt-10 mb-4 tracking-tight">Message Received</h4>
         <p className="text-slate-400 text-lg max-w-sm mx-auto">
-          Thank you for reaching out. We've received your submission and will get back to you shortly.
+          Thank you for reaching out. We've received your submission.
         </p>
+
         <button 
-          onClick={() => setSubmitted(false)}
+          onClick={() => {
+            setSubmitted(false);
+            setErrorMsg(null);
+          }}
           className="mt-10 px-10 py-3 rounded-full border border-white/10 text-white/60 hover:text-white hover:border-white/20 transition-all text-xs font-bold uppercase tracking-[0.2em]"
         >
           Send another
@@ -228,12 +261,20 @@ const ContactForm = () => {
       onSubmit={handleSubmit}
       data-netlify="true"
       name="contact"
+      data-netlify-honeypot="bot-field"
     >
       {/* Honeypot & Netlify hidden inputs */}
       <input type="hidden" name="form-name" value="contact" />
       <div className="hidden">
         <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
       </div>
+
+      {errorMsg && (
+        <div className="bg-rose-500/10 border border-rose-500/20 text-rose-300 px-5 py-4 rounded-2xl text-sm leading-relaxed animate-in fade-in slide-in-from-top-4 duration-300">
+          <span className="text-rose-400 font-bold block mb-1">⚠️ Submission Failed:</span>
+          {errorMsg}
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-3">
@@ -378,18 +419,54 @@ const HomePage = () => {
   </div>
 </a>
 
-              {/* Bottom Box: Large Wide Button */}
-              <button 
-                className="relative h-1/2 w-full group overflow-hidden flex items-center justify-center cursor-pointer transition-all active:scale-[0.98] bg-cover bg-center"
-                style={{ backgroundImage: 'url(/senapati.webp)' }}
-                onClick={() => document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-              >
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-300"></div>
-                <div className="relative z-10 text-white font-bold text-lg sm:text-2xl tracking-tight flex items-center gap-2">
-                  <span>Explore Directory</span>
-                  <ArrowRight className="w-6 h-6 sm:w-7 sm:h-7 group-hover:translate-x-2 transition-transform" />
+              {/* Bottom Box: SC ShopManager Product Video Showcase */}
+              <div className="relative h-1/2 w-full bg-[#050b18]/90 p-3 sm:p-4 flex flex-col justify-between overflow-hidden border-t border-cyan-400/20">
+                <div className="flex flex-row gap-3 sm:gap-4 items-center h-full">
+                  {/* Left Column: Visual Thumbnail */}
+                  <div className="relative w-1/3 sm:w-2/5 aspect-video sm:h-full sm:aspect-auto rounded-xl overflow-hidden border border-white/10 group bg-slate-950 flex-shrink-0">
+                    <img 
+                      src="https://img.youtube.com/vi/WIHiL8i_Y5k/hqdefault.jpg" 
+                      alt="SC ShopManager Video Thumbnail"
+                      referrerPolicy="no-referrer"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    {/* Dark gradient overlay + play button */}
+                    <a 
+                      href="https://www.youtube.com/watch?v=WIHiL8i_Y5k" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="absolute inset-0 bg-black/40 group-hover:bg-black/50 flex items-center justify-center transition-all cursor-pointer"
+                    >
+                      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-red-600/95 text-white flex items-center justify-center shadow-lg group-hover:bg-red-500 group-hover:scale-110 transition-all duration-300">
+                        <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current ml-0.5" />
+                      </div>
+                    </a>
+                  </div>
+
+                  {/* Right Column: Title, Description & Action Button */}
+                  <div className="flex-1 flex flex-col justify-between h-full py-0.5 min-w-0">
+                    <div>
+                      <h4 className="text-white text-xs sm:text-sm font-bold tracking-tight mb-0.5 flex items-center gap-1.5 leading-none">
+                        <span>SC ShopManager</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                      </h4>
+                      <p className="text-slate-400 text-[9px] sm:text-[11px] leading-[1.3] sm:leading-[1.4] font-medium line-clamp-2 sm:line-clamp-3">
+                        Modern billing and retail management system for smart businesses.
+                      </p>
+                    </div>
+
+                    <a 
+                      href="https://www.youtube.com/watch?v=WIHiL8i_Y5k" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-1 bg-indigo-600 hover:bg-indigo-500 text-white text-[9px] sm:text-[11px] font-bold py-1 sm:py-1.5 px-2.5 sm:px-3.5 rounded-lg transition-all shadow-md hover:shadow-indigo-500/10 active:scale-95 text-center w-fit"
+                    >
+                      <span>Watch Demo on YouTube</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
                 </div>
-              </button>
+              </div>
 
             </div>
           </div>
@@ -454,20 +531,88 @@ const HomePage = () => {
                       {listing.items}
                     </p>
                   )}
-                  
-                  {/* Action Buttons */}
+                                          {/* Action Buttons */}
                   <div className="mt-auto pt-4 border-t border-white/10 flex flex-col gap-2.5">
-                    {listing.phone && Array.isArray(listing.phone) && listing.phone.length > 0 && (
-                      <div className="flex flex-col gap-2.5">
-                        {listing.phone.map((num, i) => (
-                          <a key={i} href={`tel:${num.replace(/[^0-9+]/g, '')}`} className={`w-full ${listing.highlightBg || 'bg-sky-500'} hover:opacity-90 text-white min-h-[44px] py-1 px-3 rounded-xl text-[14px] font-bold flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95`}>
-                            <Phone className="w-4 h-4 shrink-0" /> 
-                            <span className="leading-tight shrink-0 md:hidden">Call</span>
-                            <span className="leading-tight shrink-0 hidden md:block">{num.trim()}</span>
-                          </a>
-                        ))}
+                    
+                    {/* Filter out empty country code strings like "+91 " or "+91" */}
+                    {listing.phone && Array.isArray(listing.phone) && listing.phone.filter(p => {
+                      const clean = p?.replace(/\s+/g, '');
+                      return clean && clean !== "+91";
+                    }).length > 0 && (
+                      <div className="w-full">
+                        
+                        {/* 1. DESKTOP VIEW: Clean, non-clickable layout text labels just for display */}
+                        <div className="hidden md:block mb-2">
+                          <p className="text-[11px] text-slate-400 font-bold tracking-widest uppercase mb-1">Contact:</p>
+                          <div className="flex flex-wrap gap-x-2 gap-y-0.5">
+                            {listing.phone
+                              .filter(p => {
+                                const clean = p?.replace(/\s+/g, '');
+                                return clean && clean !== "+91";
+                              })
+                              .map((phoneNum, idx, arr) => (
+                                <span key={idx} className="text-slate-200 text-sm font-semibold">
+                                  {phoneNum.trim()}{idx < arr.length - 1 ? "," : ""}
+                                </span>
+                              ))}
+                          </div>
+                        </div>
+
+                        {/* 2. MOBILE VIEW: Space-saving interactive actions */}
+                        <div className="block md:hidden mb-2.5">
+                          {listing.phone.filter(p => {
+                            const clean = p?.replace(/\s+/g, '');
+                            return clean && clean !== "+91";
+                          }).length === 1 ? (
+                            /* Single number direct dial option */
+                            <a
+                              href={`tel:${listing.phone.filter(p => {
+                                const clean = p?.replace(/\s+/g, '');
+                                return clean && clean !== "+91";
+                              })[0].replace(/[^0-9+]/g, '')}`}
+                              className={`w-full ${listing.highlightBg || 'bg-sky-500'} hover:opacity-90 text-white min-h-[44px] py-2 px-4 rounded-xl text-[14px] font-bold flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95`}
+                            >
+                              <Phone className="w-4 h-4 shrink-0" />
+                              <span className="leading-tight">Call Business</span>
+                            </a>
+                          ) : (
+                            /* Multiple numbers switch to a native select wrapper dropdown to hide clutter */
+                            <div className="relative w-full">
+                              <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-white z-10">
+                                <Phone className="w-4 h-4 shrink-0" />
+                              </div>
+                              <select
+                                onChange={(e) => {
+                                  if (e.target.value) {
+                                    window.location.href = `tel:${e.target.value}`;
+                                    e.target.value = ""; // Reset selected index option
+                                  }
+                                }}
+                                className={`w-full ${listing.highlightBg || 'bg-sky-500'} hover:opacity-90 text-white min-h-[44px] py-2 pl-11 pr-10 rounded-xl text-[14px] font-bold appearance-none transition-all shadow-lg text-left active:scale-95`}
+                                defaultValue=""
+                              >
+                                <option value="" disabled hidden>Choose Number to Call</option>
+                                {listing.phone
+                                  .filter(p => {
+                                    const clean = p?.replace(/\s+/g, '');
+                                    return clean && clean !== "+91";
+                                  })
+                                  .map((phoneNum, idx) => (
+                                    <option key={idx} value={phoneNum.replace(/[^0-9+]/g, '')} className="text-black bg-white font-medium">
+                                      Line {idx + 1}: {phoneNum.trim()}
+                                    </option>
+                                  ))}
+                              </select>
+                              <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-white/80">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
                       </div>
                     )}
+
                     {listing.email ? (
                       <a href={`mailto:${listing.email}`} className="w-full bg-white/10 border border-white/10 hover:bg-white/20 text-white min-h-[44px] py-1 px-3 rounded-xl text-[14px] font-bold flex items-center justify-center gap-2 transition-all active:scale-95">
                         <Mail className="w-4 h-4 text-indigo-200 shrink-0" /> 
@@ -706,6 +851,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
-
-

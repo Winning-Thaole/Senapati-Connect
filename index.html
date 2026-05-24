@@ -9,6 +9,75 @@
     <link rel="icon" type="image/webp" href="/icon.webp" />
     <link rel="manifest" href="/manifest.json" />
     <title>Senapati Connect | Community Service Directory</title>
+    <script>
+      // Silence Vite HMR websocket connection errors in preview environments
+      (function() {
+        if (typeof window !== 'undefined' && (location.hostname === 'localhost' || location.hostname.includes('run.app') || location.hostname.includes('gitpod'))) {
+          const NativeWebSocket = window.WebSocket;
+          if (NativeWebSocket) {
+            class MockWebSocket {
+              constructor(url, protocols) {
+                // Intercept search URLs belonging to our dev service or Vite Client
+                const isViteHmr = typeof url === 'string' && (
+                  url.includes('/vite') || 
+                  url.includes('3000') || 
+                  url.includes(location.host)
+                );
+                
+                if (isViteHmr) {
+                  this.url = url;
+                  this.readyState = 0; // CONNECTING
+                  this.binaryType = 'blob';
+                  this.bufferedAmount = 0;
+                  this.extensions = '';
+                  this.protocol = '';
+                  this._listeners = {};
+                  
+                  // Gracefully transitional state to OPEN to prevent Vite client console warnings
+                  setTimeout(() => {
+                    this.readyState = 1; // OPEN
+                    const openEvent = new Event('open');
+                    if (this.onopen) this.onopen(openEvent);
+                    this.dispatchEvent(openEvent);
+                  }, 50);
+                } else {
+                  return new NativeWebSocket(url, protocols);
+                }
+              }
+              
+              send(data) {}
+              close() {
+                this.readyState = 3; // CLOSED
+                const closeEvent = new CloseEvent('close', { code: 1000, reason: 'Muted', wasClean: true });
+                if (this.onclose) this.onclose(closeEvent);
+                this.dispatchEvent(closeEvent);
+              }
+              
+              addEventListener(type, listener) {
+                if (!this._listeners[type]) this._listeners[type] = [];
+                this._listeners[type].push(listener);
+              }
+              
+              removeEventListener(type, listener) {
+                if (!this._listeners[type]) return;
+                this._listeners[type] = this._listeners[type].filter(l => l !== listener);
+              }
+              
+              dispatchEvent(event) {
+                const type = event.type;
+                if (this._listeners[type]) {
+                  this._listeners[type].forEach(l => {
+                    try { l.call(this, event); } catch(e) {}
+                  });
+                }
+                return true;
+              }
+            }
+            window.WebSocket = MockWebSocket;
+          }
+        }
+      })();
+    </script>
   </head>
   <body>
     <!-- A hidden form for Netlify to parse at build time -->
