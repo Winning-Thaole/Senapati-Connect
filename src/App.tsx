@@ -34,6 +34,7 @@ import {
   ArrowRight,
   Play,
   ExternalLink,
+  Download,
   Route as RouteIcon
 } from "lucide-react";
 import CategoryDetail from "./pages/CategoryDetail";
@@ -387,37 +388,122 @@ const HomePage = () => {
             
             <div className="w-full h-[400px] sm:h-[500px] flex flex-col rounded-2xl border border-cyan-400/40 bg-[#050b18] backdrop-blur-sm overflow-hidden relative shadow-[0_0_20px_rgba(34,211,238,0.15)]">
               
-             {/* Top Box: Scholarship Notice */}
-<a
-  href="https://dtahills.mn.gov.in/notification-for-eligible-students-under-pre-matric-and-post-matric-scholarship-schemes-for-the-year-2023-24-and-2024-25/"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="relative h-1/2 w-full border-b border-cyan-400/20 overflow-hidden group bg-slate-900"
->
-  {/* Content */}
-  <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-8 text-white">
+              {/* Top Box: SC ShopManager Promotional Card */}
+              <div className="relative h-1/2 w-full border-b border-cyan-400/20 overflow-hidden bg-slate-900 flex items-center">
+                
+                {/* Visual glow bg */}
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-cyan-500/5 to-transparent pointer-events-none" />
 
-    <div className="inline-block mb-3">
-      <span className="bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">
-        Official Notice
-      </span>
-    </div>
+                {/* Content Container */}
+                <div className="relative z-10 w-full h-full flex flex-row items-center justify-between px-5 sm:px-8 py-4 sm:py-5 text-white gap-4 sm:gap-6">
+                  
+                  {/* Left Column: Text & Buttons */}
+                  <div className="flex-1 flex flex-col justify-center min-w-0 h-full">
+                    
+                    {/* Badge */}
+                    <div className="inline-block mb-1.5 sm:mb-2 w-fit">
+                      <span className="bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold tracking-widest uppercase">
+                        NEW BUSINESS TOOL
+                      </span>
+                    </div>
 
-    <h3 className="text-sm sm:text-lg font-bold leading-relaxed">
-      Pre-Matric & Post-Matric Scholarship Notification 2023–24 & 2024–25
-    </h3>
+                    {/* Title */}
+                    <h3 className="text-base sm:text-lg font-bold leading-none tracking-tight text-white mb-1 flex items-center gap-1.5">
+                      <span>SC ShopManager</span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    </h3>
 
-    <p className="text-xs sm:text-sm text-slate-300 mt-3 leading-relaxed line-clamp-3">
-      Eligible Scheduled Tribe (ST) students who have not received scholarship benefits due to Aadhaar non-linking with bank accounts are advised to complete Aadhaar seeding immediately.
-    </p>
+                    {/* Description */}
+                    <p className="text-[11px] sm:text-xs text-slate-300 mb-2.5 sm:mb-3.5 leading-relaxed font-medium line-clamp-2 md:line-clamp-3">
+                      Modern POS, billing, inventory, and customer management software for local shops and businesses.
+                    </p>
 
-    <div className="mt-4 flex items-center gap-2 text-cyan-300 font-semibold text-sm">
-      <span>Read Full Notification</span>
-      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-    </div>
+                    {/* Double CTA Buttons */}
+                    <div className="flex flex-wrap items-center gap-2">
+                      <a
+                        href="https://sc-shopmanager-website.netlify.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] sm:text-[11px] font-bold py-1.5 px-3 rounded-lg transition-all shadow-md hover:scale-[1.02] active:scale-95 text-center cursor-pointer"
+                      >
+                        <span>Open Website</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
 
-  </div>
-</a>
+                     
+                    </div>
+
+                    {/* Optional small text */}
+                    <span className="text-[9px] sm:text-[10px] text-slate-400 mt-2 font-medium block">
+                      7-Day Free Trial • Google Login Supported
+                    </span>
+
+                  </div>
+
+                  {/* Right Column: High-Fidelity Desktop Mockup (Saves bandwidth, extremely crisp, dark-tech aesthetic) */}
+                  <div className="hidden md:flex flex-col w-[170px] lg:w-[220px] aspect-[1.4/1] rounded-lg border border-[#22d3ee]/20 bg-[#070b13] shadow-2xl relative overflow-hidden shrink-0 group-hover:border-[#22d3ee]/40 transition-all duration-300">
+                    
+                    {/* Mockup Window Titlebar */}
+                    <div className="h-5 bg-[#0e1525] border-b border-white/5 px-2 flex items-center justify-between shrink-0">
+                      <div className="flex gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500 opacity-80" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 opacity-80" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 opacity-80" />
+                      </div>
+                      <span className="text-[8px] text-slate-500 font-mono scale-[0.85]">SC ShopManager</span>
+                      <div className="w-4" /> {/* spacer */}
+                    </div>
+
+                    {/* Mockup Dashboard Body */}
+                    <div className="flex-1 flex flex-row min-w-0 overflow-hidden bg-[#070b13] p-1.5 gap-1.5 font-mono select-none">
+                      
+                      {/* Left sidebar mockup navigation */}
+                      <div className="w-7 bg-[#0b111e]/60 rounded p-1 flex flex-col gap-1 items-center shrink-0 border border-white/5">
+                        <div className="w-3.5 h-3.5 rounded-sm bg-indigo-500/20 flex items-center justify-center text-indigo-400 text-[6px] font-bold">POS</div>
+                        <div className="w-3.5 h-1 bg-white/10 rounded-full" />
+                        <div className="w-3.5 h-1 bg-white/15 rounded-full" />
+                        <div className="w-3.5 h-1 bg-white/10 rounded-full" />
+                        <div className="w-3.5 h-1 bg-white/10 rounded-full" />
+                      </div>
+
+                      {/* Main screen area */}
+                      <div className="flex-1 flex flex-col gap-1.5 min-w-0">
+                        {/* Header metrics card */}
+                        <div className="bg-[#0b111e]/80 border border-[#22d3ee]/10 rounded p-1 flex flex-col justify-center">
+                          <span className="text-[6px] text-slate-500 block leading-none font-sans uppercase font-xs">Daily Revenue</span>
+                          <div className="flex items-baseline gap-1 mt-0.5">
+                            <span className="text-[10px] font-bold tracking-tight text-emerald-400">₹42,850</span>
+                            <span className="text-[5px] text-emerald-500 font-bold leading-none select-none">▲ 12%</span>
+                          </div>
+                        </div>
+
+                        {/* Recent Transactions list / Grid items snippet */}
+                        <div className="flex-1 bg-[#0b111e]/40 border border-white/5 rounded p-1 flex flex-col gap-1 overflow-hidden">
+                          <span className="text-[6px] text-slate-400 font-bold block leading-none mb-0.5 uppercase tracking-wider font-sans text-xs">Recent Billing</span>
+                          
+                          {/* List of items */}
+                          <div className="flex flex-col gap-0.5 text-[5px] text-slate-400 leading-tight">
+                            <div className="flex items-center justify-between border-b border-white/5 pb-0.5">
+                              <span className="truncate text-[5px] font-sans">TX-9018 • Cash</span>
+                              <span className="text-emerald-400 font-bold">₹1,240</span>
+                            </div>
+                            <div className="flex items-center justify-between border-b border-white/5 pb-0.5">
+                              <span className="truncate text-[5px] font-sans">TX-9017 • GPay</span>
+                              <span className="text-emerald-400 font-bold">₹820</span>
+                            </div>
+                            <div className="flex items-center justify-between border-b border-white/5 pb-0.5">
+                              <span className="truncate text-[5px] font-sans">TX-9016 • Card</span>
+                              <span className="text-emerald-400 font-bold">₹3,450</span>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
 
               {/* Bottom Box: SC ShopManager Product Video Showcase */}
               <div className="relative h-1/2 w-full bg-[#050b18]/90 p-3 sm:p-4 flex flex-col justify-between overflow-hidden border-t border-cyan-400/20">

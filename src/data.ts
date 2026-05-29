@@ -10,13 +10,13 @@ export const categoryData = {
     hoverBorder: "group-hover:border-blue-500/50",
     highlightBg: "bg-blue-500",
     listings: [
-      { name: "3D Hotel", location: "Main Road, Senapati HQ", phone: ["+91 98620 12345"], image: null },
-      { name: "Hotel Range Rover", location: "Bazar Area, Senapati", phone: ["+91 "], image: null },
-      { name: "Crown Plaza Hotel", location: "Near Traffic Point, Senapati", phone: ["+91 70855 59030"], image: null },
+      { name: "3D Hotel", location: "Main Road, Senapati HQ", phone: ["+91 "], image: null },
+      { name: "Hotel Range Rover", location: "Old Road, Senapati", phone: ["+91 "], image: null },
+      { name: "Crown Plaza Hotel", location: "Old Road, Senapati", phone: ["+91 70855 59030"], image: null },
       { name: "Hotel Serena", location: "NH-2, Senapati", phone: ["+91 "], image: null },
-      { name: "Eden Hotel", location: "Viewland Colony, Senapati", phone: ["+91 "], image: null },
-      { name: "Susan Recedencia Lodge", location: "Opposite DC Office Road", phone: ["+91 "], image: null },
-      { name: "Lodge Pinewood", location: "Karong, Senapati", phone: ["+91 "], image: null }
+      { name: "Eden Hotel", location: "NH-2, Senapati", phone: ["+91 "], image: null },
+      { name: "Susan Recedencia Lodge", location: "NH-2 Senapati", phone: ["+91 "], image: null },
+      { name: "Lodge Pinewood", location: "PNBA Building, Senapati", phone: ["+91 "], image: null }
     ]
   },
   "event-planner": {
@@ -46,7 +46,8 @@ export const categoryData = {
       { name: "James S-Presso", location: "Senapati", phone: ["+91 70055 24310"], image: "/presso.webp"},
       { name: "Gideon Baleno", location: "Karong", phone: ["+91 96124 54831"], image: "/baleno.webp"},
       { name: "Dale alto", location: "Kohima/Laii", phone: ["+91 85757 26305"], image: "/altoyellow.webp"},
-       { name: "Rueben Alto", location: "Taxi Stand, Senapati", phone: ["+91 90809 31496"], image: "/alto.webp"},
+      { name: "Rueben Auto", location: "Auto Stand, Senapati", phone: ["+91 90809 31496"], image: "/auto.webp"},
+      { name: "Kazung Taxi Sumo", location: "Maram to Senapati", phone: ["+91 70853 27212"], image: "/sumo1.webp"},
     ]
   },
   "local-shop": {
@@ -105,7 +106,9 @@ export const categoryData = {
     hoverBorder: "group-hover:border-red-500/50",
     highlightBg: "bg-red-500",
     listings: [
-      { name: "District Hospital Senapati", location: "Above District Council", phone: ["+91 "], image: null }
+      { name: "District Hospital Senapati", location: "Above District Council", phone: ["+91 "], image: null },
+      { name: "BLATH Clinic", location: "Reikhumai Taphou, Senapati", phone: ["+91 "], image: null },
+      { name: "GETWELL HEALTHCARE AND DIAGNOSTIC CENTRE", location: "Christian Colony, Senapati", phone: ["+91 "], image: null }
     ]
   },
   "pharmacy": {
