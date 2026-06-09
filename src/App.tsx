@@ -58,31 +58,25 @@ const categoryIcons: Record<string, React.ElementType> = {
 };
 
 const Logo = () => {
-  const [logoFailed, setLogoFailed] = useState(false);
-
-  if (logoFailed) {
-    return (
-      <div className="flex items-center gap-2 relative z-50 select-none">
-        <div className="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center shadow-inner">
-          <span className="text-indigo-400 font-extrabold text-base tracking-tight leading-none pt-0.5">S</span>
-        </div>
-        <span className="text-white font-extrabold text-lg sm:text-xl tracking-tight leading-none">
-          Senapati <span className="text-indigo-400">Connect</span>
+  return (
+    <div className="flex items-center gap-3 relative z-50 select-none">
+      <img 
+        src="/icon.webp" 
+        alt="Senapati Connect Logo" 
+        className="w-10 h-10 md:w-11 md:h-11 object-contain rounded-xl shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all duration-300 hover:scale-105"
+        onError={(e) => {
+          e.currentTarget.style.display = 'none';
+        }}
+      />
+      <div className="flex flex-col">
+        <span className="text-white font-black text-xl md:text-2xl tracking-tight leading-none">
+          Senapati <span className="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">Connect</span>
+        </span>
+        <span className="text-[7px] md:text-[8px] text-cyan-400/80 font-bold uppercase tracking-[0.2em] mt-1 leading-none">
+          Local Business Directory
         </span>
       </div>
-    );
-  }
-
-  return (
-    <img 
-      src="/logo.webp" 
-      alt="Senapati Connect Logo" 
-      className="h-10 md:h-12 w-auto object-contain relative z-50" 
-      onError={() => {
-        console.warn("logo.webp failed to load. Falling back to typographic logo.");
-        setLogoFailed(true);
-      }} 
-    />
+    </div>
   );
 };
 
@@ -388,60 +382,53 @@ const HomePage = () => {
             
             <div className="w-full h-[400px] sm:h-[500px] flex flex-col rounded-2xl border border-cyan-400/40 bg-[#050b18] backdrop-blur-sm overflow-hidden relative shadow-[0_0_20px_rgba(34,211,238,0.15)]">
               
-              {/* Top Box: SC ShopManager Promotional Card */}
-              <div className="relative h-1/2 w-full border-b border-cyan-400/20 overflow-hidden bg-slate-900 flex items-center">
+              {/* Top Box: Senapati Connect Hub Portal */}
+              <div className="relative h-1/2 w-full border-b border-cyan-400/20 overflow-hidden bg-gradient-to-b from-slate-900 to-slate-950 flex items-center">
                 
                 {/* Visual glow bg */}
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-cyan-500/5 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/15 via-cyan-500/5 to-transparent pointer-events-none" />
 
                 {/* Content Container */}
-                <div className="relative z-10 w-full h-full flex flex-row items-center justify-between px-5 sm:px-8 py-4 sm:py-5 text-white gap-4 sm:gap-6">
+                <div className="relative z-10 w-full h-full flex flex-row items-center justify-between px-5 sm:px-8 py-4 text-white gap-4 sm:gap-6">
                   
                   {/* Left Column: Text & Buttons */}
                   <div className="flex-1 flex flex-col justify-center min-w-0 h-full">
                     
                     {/* Badge */}
                     <div className="inline-block mb-1.5 sm:mb-2 w-fit">
-                      <span className="bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold tracking-widest uppercase">
-                        NEW BUSINESS TOOL
+                      <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold tracking-widest uppercase">
+                        OFFICIAL APP PORTAL
                       </span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-base sm:text-lg font-bold leading-none tracking-tight text-white mb-1 flex items-center gap-1.5">
-                      <span>SC ShopManager</span>
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <h3 className="text-base sm:text-lg font-bold leading-none tracking-tight text-white mb-1.5 flex items-center gap-1.5">
+                      <span>Senapati Connect Hub</span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
                     </h3>
 
                     {/* Description */}
-                    <p className="text-[11px] sm:text-xs text-slate-300 mb-2.5 sm:mb-3.5 leading-relaxed font-medium line-clamp-2 md:line-clamp-3">
-                      Modern POS, billing, inventory, and customer management software for local shops and businesses.
+                    <p className="text-[10.5px] sm:text-xs text-slate-300 mb-2.5 sm:mb-3 leading-relaxed font-medium line-clamp-3">
+                      The central hub for all applications developed by Senapati Connect. Access business management tools, coaching management systems, information services, desktop software, and future digital solutions from one location.
                     </p>
 
-                    {/* Double CTA Buttons */}
+                    {/* CTA Button */}
                     <div className="flex flex-wrap items-center gap-2">
                       <a
-                        href="https://sc-shopmanager-website.netlify.app/"
+                        href="https://senapati-connect-hub.netlify.app/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] sm:text-[11px] font-bold py-1.5 px-3 rounded-lg transition-all shadow-md hover:scale-[1.02] active:scale-95 text-center cursor-pointer"
+                        className="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] sm:text-[11px] font-bold py-1.5 px-3.5 rounded-lg transition-all shadow-md hover:scale-[1.02] active:scale-95 text-center cursor-pointer"
                       >
-                        <span>Open Website</span>
+                        <span>Open App Portal</span>
                         <ExternalLink className="w-3.5 h-3.5" />
                       </a>
-
-                     
                     </div>
-
-                    {/* Optional small text */}
-                    <span className="text-[9px] sm:text-[10px] text-slate-400 mt-2 font-medium block">
-                      7-Day Free Trial • Google Login Supported
-                    </span>
 
                   </div>
 
-                  {/* Right Column: High-Fidelity Desktop Mockup (Saves bandwidth, extremely crisp, dark-tech aesthetic) */}
-                  <div className="hidden md:flex flex-col w-[170px] lg:w-[220px] aspect-[1.4/1] rounded-lg border border-[#22d3ee]/20 bg-[#070b13] shadow-2xl relative overflow-hidden shrink-0 group-hover:border-[#22d3ee]/40 transition-all duration-300">
+                  {/* Right Column: High-Fidelity Hub Mockup */}
+                  <div className="hidden md:flex flex-col w-[170px] lg:w-[220px] aspect-[1.4/1] rounded-lg border border-cyan-400/20 bg-[#070b13] shadow-2xl relative overflow-hidden shrink-0">
                     
                     {/* Mockup Window Titlebar */}
                     <div className="h-5 bg-[#0e1525] border-b border-white/5 px-2 flex items-center justify-between shrink-0">
@@ -450,54 +437,35 @@ const HomePage = () => {
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-500 opacity-80" />
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 opacity-80" />
                       </div>
-                      <span className="text-[8px] text-slate-500 font-mono scale-[0.85]">SC ShopManager</span>
+                      <span className="text-[8px] text-slate-500 font-mono scale-[0.85]">sc-connect-hub</span>
                       <div className="w-4" /> {/* spacer */}
                     </div>
 
-                    {/* Mockup Dashboard Body */}
-                    <div className="flex-1 flex flex-row min-w-0 overflow-hidden bg-[#070b13] p-1.5 gap-1.5 font-mono select-none">
+                    {/* Mockup Body */}
+                    <div className="flex-1 flex flex-col p-2 bg-[#050912] overflow-hidden justify-between">
+                      <div className="text-[7px] font-bold text-indigo-300 font-mono flex items-center justify-between border-b border-white/5 pb-1 mb-1">
+                        <span>CONNECT SUITE</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                      </div>
                       
-                      {/* Left sidebar mockup navigation */}
-                      <div className="w-7 bg-[#0b111e]/60 rounded p-1 flex flex-col gap-1 items-center shrink-0 border border-white/5">
-                        <div className="w-3.5 h-3.5 rounded-sm bg-indigo-500/20 flex items-center justify-center text-indigo-400 text-[6px] font-bold">POS</div>
-                        <div className="w-3.5 h-1 bg-white/10 rounded-full" />
-                        <div className="w-3.5 h-1 bg-white/15 rounded-full" />
-                        <div className="w-3.5 h-1 bg-white/10 rounded-full" />
-                        <div className="w-3.5 h-1 bg-white/10 rounded-full" />
-                      </div>
-
-                      {/* Main screen area */}
-                      <div className="flex-1 flex flex-col gap-1.5 min-w-0">
-                        {/* Header metrics card */}
-                        <div className="bg-[#0b111e]/80 border border-[#22d3ee]/10 rounded p-1 flex flex-col justify-center">
-                          <span className="text-[6px] text-slate-500 block leading-none font-sans uppercase font-xs">Daily Revenue</span>
-                          <div className="flex items-baseline gap-1 mt-0.5">
-                            <span className="text-[10px] font-bold tracking-tight text-emerald-400">₹42,850</span>
-                            <span className="text-[5px] text-emerald-500 font-bold leading-none select-none">▲ 12%</span>
-                          </div>
+                      {/* Grid of 4 cards represented in dashboard */}
+                      <div className="grid grid-cols-2 gap-1 flex-1">
+                        <div className="bg-[#0c1224] border border-white/5 rounded p-1 flex flex-col justify-between">
+                          <LayoutGrid className="w-2.5 h-2.5 text-cyan-400" />
+                          <span className="text-[5px] text-white/80 font-mono transform scale-90 origin-left">Directory</span>
                         </div>
-
-                        {/* Recent Transactions list / Grid items snippet */}
-                        <div className="flex-1 bg-[#0b111e]/40 border border-white/5 rounded p-1 flex flex-col gap-1 overflow-hidden">
-                          <span className="text-[6px] text-slate-400 font-bold block leading-none mb-0.5 uppercase tracking-wider font-sans text-xs">Recent Billing</span>
-                          
-                          {/* List of items */}
-                          <div className="flex flex-col gap-0.5 text-[5px] text-slate-400 leading-tight">
-                            <div className="flex items-center justify-between border-b border-white/5 pb-0.5">
-                              <span className="truncate text-[5px] font-sans">TX-9018 • Cash</span>
-                              <span className="text-emerald-400 font-bold">₹1,240</span>
-                            </div>
-                            <div className="flex items-center justify-between border-b border-white/5 pb-0.5">
-                              <span className="truncate text-[5px] font-sans">TX-9017 • GPay</span>
-                              <span className="text-emerald-400 font-bold">₹820</span>
-                            </div>
-                            <div className="flex items-center justify-between border-b border-white/5 pb-0.5">
-                              <span className="truncate text-[5px] font-sans">TX-9016 • Card</span>
-                              <span className="text-emerald-400 font-bold">₹3,450</span>
-                            </div>
-                          </div>
+                        <div className="bg-[#0c1224] border border-white/5 rounded p-1 flex flex-col justify-between">
+                          <Store className="w-2.5 h-2.5 text-indigo-400" />
+                          <span className="text-[5px] text-white/80 font-mono transform scale-90 origin-left">ShopManager</span>
                         </div>
-
+                        <div className="bg-[#0c1224] border border-white/5 rounded p-1 flex flex-col justify-between">
+                          <BookOpen className="w-2.5 h-2.5 text-emerald-400" />
+                          <span className="text-[5px] text-white/80 font-mono transform scale-90 origin-left">Coaching CMS</span>
+                        </div>
+                        <div className="bg-[#0c1224] border border-white/5 rounded p-1 flex flex-col justify-between">
+                          <Download className="w-2.5 h-2.5 text-amber-500" />
+                          <span className="text-[5px] text-white/80 font-mono transform scale-90 origin-left">Downloads</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -505,55 +473,81 @@ const HomePage = () => {
                 </div>
               </div>
 
-              {/* Bottom Box: SC ShopManager Product Video Showcase */}
-              <div className="relative h-1/2 w-full bg-[#050b18]/90 p-3 sm:p-4 flex flex-col justify-between overflow-hidden border-t border-cyan-400/20">
-                <div className="flex flex-row gap-3 sm:gap-4 items-center h-full">
-                  {/* Left Column: Visual Thumbnail */}
-                  <div className="relative w-1/3 sm:w-2/5 aspect-video sm:h-full sm:aspect-auto rounded-xl overflow-hidden border border-white/10 group bg-slate-950 flex-shrink-0">
-                    <img 
-                      src="https://img.youtube.com/vi/WIHiL8i_Y5k/hqdefault.jpg" 
-                      alt="SC ShopManager Video Thumbnail"
-                      referrerPolicy="no-referrer"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    {/* Dark gradient overlay + play button */}
-                    <a 
-                      href="https://www.youtube.com/watch?v=WIHiL8i_Y5k" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="absolute inset-0 bg-black/40 group-hover:bg-black/50 flex items-center justify-center transition-all cursor-pointer"
-                    >
-                      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-red-600/95 text-white flex items-center justify-center shadow-lg group-hover:bg-red-500 group-hover:scale-110 transition-all duration-300">
-                        <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current ml-0.5" />
-                      </div>
-                    </a>
-                  </div>
-
-                  {/* Right Column: Title, Description & Action Button */}
-                  <div className="flex-1 flex flex-col justify-between h-full py-0.5 min-w-0">
-                    <div>
-                      <h4 className="text-white text-xs sm:text-sm font-bold tracking-tight mb-0.5 flex items-center gap-1.5 leading-none">
-                        <span>SC ShopManager</span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                      </h4>
-                      <p className="text-slate-400 text-[9px] sm:text-[11px] leading-[1.3] sm:leading-[1.4] font-medium line-clamp-2 sm:line-clamp-3">
-                        Modern billing and retail management system for smart businesses.
-                      </p>
-                    </div>
-
-                    <a 
-                      href="https://www.youtube.com/watch?v=WIHiL8i_Y5k" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-1 bg-indigo-600 hover:bg-indigo-500 text-white text-[9px] sm:text-[11px] font-bold py-1 sm:py-1.5 px-2.5 sm:px-3.5 rounded-lg transition-all shadow-md hover:shadow-indigo-500/10 active:scale-95 text-center w-fit"
-                    >
-                      <span>Watch Demo on YouTube</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
+              {/* Bottom Box: Unified Suite Features Showcase */}
+              <div className="relative h-1/2 w-full bg-[#050b18]/95 p-4 sm:p-5 flex flex-col justify-between overflow-hidden border-t border-cyan-400/20">
+                
+                {/* Header */}
+                <div className="flex items-center justify-between mb-2 shrink-0">
+                  <span className="text-[9px] sm:text-[10px] text-cyan-400 font-bold uppercase tracking-[0.15em]">Unified Portal Applications</span>
+                  <div className="flex items-center gap-1.5 bg-[#818cf8]/10 border border-[#818cf8]/20 px-2 py-0.5 rounded-full">
+                    <span className="w-1 h-1 rounded-full bg-indigo-400"></span>
+                    <span className="text-[8px] text-indigo-300 font-bold uppercase tracking-wider">Gateway Entry</span>
                   </div>
                 </div>
-              </div>
 
+                {/* Grid of 5 feature cards */}
+                <div className="grid grid-cols-2 min-[420px]:grid-cols-3 md:grid-cols-5 gap-2.5 w-full flex-1 items-center">
+                  
+                  {/* Feature 1: Directory */}
+                  <div className="bg-white/5 border border-white/5 hover:border-indigo-400/30 hover:bg-indigo-500/5 rounded-xl p-2 flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-105 group/item">
+                    <div className="w-7 h-7 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-1 group-hover/item:bg-indigo-500/20 transition-all">
+                      <LayoutGrid className="w-3.5 h-3.5" />
+                    </div>
+                    <span className="text-[9px] sm:text-[10px] font-bold text-slate-200 tracking-tight leading-none text-center">
+                      Directory
+                    </span>
+                  </div>
+
+                  {/* Feature 2: ShopManager */}
+                  <div className="bg-white/5 border border-white/5 hover:border-cyan-400/30 hover:bg-cyan-500/5 rounded-xl p-2 flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-105 group/item">
+                    <div className="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-1 group-hover/item:bg-cyan-500/20 transition-all">
+                      <Store className="w-3.5 h-3.5" />
+                    </div>
+                    <span className="text-[9px] sm:text-[10px] font-bold text-slate-200 tracking-tight leading-none text-center">
+                      ShopManager
+                    </span>
+                  </div>
+
+                  {/* Feature 3: Coaching CMS */}
+                  <div className="bg-white/5 border border-white/5 hover:border-emerald-400/30 hover:bg-emerald-500/5 rounded-xl p-2 flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-105 group/item">
+                    <div className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-1 group-hover/item:bg-emerald-500/20 transition-all">
+                      <BookOpen className="w-3.5 h-3.5" />
+                    </div>
+                    <span className="text-[9px] sm:text-[10px] font-bold text-slate-200 tracking-tight leading-none text-center">
+                      Coaching CMS
+                    </span>
+                  </div>
+
+                  {/* Feature 4: Downloads */}
+                  <div className="bg-white/5 border border-white/5 hover:border-amber-400/30 hover:bg-amber-500/5 rounded-xl p-2 flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-105 group/item">
+                    <div className="w-7 h-7 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-1 group-hover/item:bg-amber-500/20 transition-all">
+                      <Download className="w-3.5 h-3.5" />
+                    </div>
+                    <span className="text-[9px] sm:text-[10px] font-bold text-slate-200 tracking-tight leading-none text-center">
+                      Downloads
+                    </span>
+                  </div>
+
+                  {/* Feature 5: Future Applications */}
+                  <div className="bg-white/5 border border-white/5 hover:border-indigo-400/30 hover:bg-indigo-500/5 rounded-xl p-2 flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-105 col-span-2 min-[420px]:col-span-1 border-dashed hover:border-dashed group/item">
+                    <div className="w-7 h-7 rounded-lg bg-indigo-500/5 border border-indigo-500/10 flex items-center justify-center text-indigo-400/50 mb-1 group-hover/item:bg-indigo-500/15 transition-all">
+                      <MoreHorizontal className="w-3.5 h-3.5" />
+                    </div>
+                    <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 tracking-tight leading-none text-center">
+                      Future Apps
+                    </span>
+                  </div>
+
+                </div>
+
+                {/* Supporting Footer Text */}
+                <div className="text-center pt-3 border-t border-white/5 shrink-0">
+                  <span className="text-[9px] sm:text-[10px] text-slate-400/80 font-bold uppercase tracking-[0.2em]">
+                    One Portal • All Applications • Future Ready
+                  </span>
+                </div>
+
+              </div>
             </div>
           </div>
         </section>
@@ -923,7 +917,7 @@ const ScrollToTopButton = () => {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <ScrollToAnchor />
       <ScrollToTopButton />
       <Header />
