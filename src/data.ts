@@ -59,6 +59,7 @@ export const categoryData = {
     hoverBorder: "group-hover:border-emerald-500/50",
     highlightBg: "bg-emerald-500",
     listings: [
+      { name: "I-Tech Computer Centre", location: "Old Road, Senapati", items: "Computer works, computer class, sales, all type of online works", phone: ["+91 87989 47100"], whatsapp: "8257097254", image: "/itech.webp" },
       { name: "J & J Summit Agency", location: "Old Road, Senapati", items: "Stationery items, newspaper, school text books.", phone: ["+91 82580 73712"], image: "/jj-summit-agency.webp" },
       { name: "Electrical & Hardware Centre", location: "NH-2, Senapati", items: "Electrical appliances, Construction materials, Paints.", phone: ["+91 82580 73712"], image: "/electrical-hardware-centre.webp" },
       { name: "Holoholona Enterprises", location: "NH-2 Near Vishal Mega Mart", items: "Poultry feeds, Pig feeds, Fish feeds.", phone: ["+91 88268 31479"], image: "/holoholona-enterprises.webp"},
